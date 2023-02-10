@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 15:45:00 by tvillare          #+#    #+#             */
-/*   Updated: 2023/01/24 18:11:16 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/02/10 20:49:16 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ int	main(int argc, char **argv)
 		printf("%d\n", count);
 		pthread_mutex_init(&table.mutex[count++], NULL);
 	}*/
-	printf("count philo %d\n", table.info->n_philo);
+	printf("count philo %d / max_eat : %d\n", table.info->n_philo,  table.info->max_eat);
+	gettimeofday(&table.t_start, NULL);
 	if (created_philo(&table) != 0)
 		return (1);
 	return (0);

@@ -20,11 +20,13 @@
 # include <limits.h>
 # include <time.h>
 # include "struct.h"
-# include "libft/union_libft.h"
+
 
 //int		ft_atoi(const char *str);
 //int		ft_isdigit(int c);
 void	*thread_philo(void *data);
+int		ft_atoi(const char *str);
+int		ft_isdigit(int c);
 
 
 
