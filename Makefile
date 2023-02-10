@@ -75,6 +75,7 @@ $(NLIBRARY): $(LIBFT)
 
 git: fclean
 	@echo "\t${BIPurple}>>Push To Git<<${NoColor}"
+	@git remote -v | cut -d " " -f 1 | uniq
 	@git add . ;
 	@read -p "Name the commit: " commit ;\
 	git commit -m "$$commit" ;\
