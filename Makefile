@@ -3,7 +3,8 @@ include colors.mk
 #                                              FILES                          #
 ###############################################################################
 CFILES		= \
-			main.c philo.c ft_atoi.c ft_isdigit.c
+			ft_atoi.c ft_isdigit.c \
+			main.c philo.c sniffer_philo.c
 OBJS	=	${CFILES:.c=.o}
 
 ###############################################################################

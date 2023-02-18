@@ -1,0 +1,8 @@
+{
+	"files.associations": {
+		"philo.h": "c",
+		"struct.h": "c",
+		"pthread.h": "c",
+		"limits.h": "c"
+	}
+}

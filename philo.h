@@ -12,6 +12,7 @@
 
 #ifndef PHILO_H
 # define PHILO_H
+
 # include <stdio.h>
 # include <unistd.h>
 # include <pthread.h>
@@ -19,14 +20,16 @@
 # include <stdlib.h>
 # include <limits.h>
 # include <time.h>
+
 # include "struct.h"
 
-
-//int		ft_atoi(const char *str);
-//int		ft_isdigit(int c);
-void	*thread_philo(void *data);
+///Utils
 int		ft_atoi(const char *str);
 int		ft_isdigit(int c);
+///Philo
+void	*thread_philo(void *data);
+void	sniffer_philo(t_table *table);
+
 
 
 

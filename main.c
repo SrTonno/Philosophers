@@ -6,13 +6,13 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 15:45:00 by tvillare          #+#    #+#             */
-/*   Updated: 2023/02/10 20:49:16 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/02/18 18:27:00 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-t_info	*save_info(char **data, int count)
+static t_info	*save_info(char **data, int count)
 {
 	t_info *info;
 
@@ -40,6 +40,7 @@ static int	created_philo(t_table *table)
 	while (max > count)
 	{
 		pthread_mutex_init(&table->mutex[count], NULL);
+		table->stats[count] = malloc(1 * sizeof(t_philo));
 		if ((pthread_create(&table->philo[count++], NULL, thread_philo, table)) != 0)
 		{
 			printf("Error creating the thread. Code ");
@@ -49,6 +50,7 @@ static int	created_philo(t_table *table)
 		table->id_tmp++;
 		printf("count n %d/%d\n", count, max);
 	}
+	sniffer_philo(table);
 	count = 0;
 	while (max > count)
 		pthread_join(table->philo[count++], NULL);
@@ -71,6 +73,7 @@ int	main(int argc, char **argv)
 	table.id_tmp = 0;
 	table.philo = malloc(table.info->n_philo + 1 * sizeof(pthread_t));
 	table.mutex = malloc(table.info->n_philo + 1 * sizeof(pthread_mutex_t));
+	table.stats = malloc(table.info->n_philo + 1 * sizeof(t_philo *));
 	/*while (table.info->n_philo > count)
 	{
 		printf("%d\n", count);
