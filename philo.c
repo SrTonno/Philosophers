@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 13:33:04 by tvillare          #+#    #+#             */
-/*   Updated: 2023/02/20 15:22:34 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/02/22 13:03:08 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ void	*thread_philo(void *data)
 	philo->id_philo = id;
 	philo->n_eat = 0;
 	post = find_post(philo->id_philo, table->info->n_philo);
-	//printf("Philo %d\n", philo->id_philo);
+	printf("Philo %d-%d\n", philo->id_philo, post);
 	if (philo->id_philo / 2 == 0)
 		usleep(40);
 	//printf("%06d\n", table->t_start.tv_usec);
 	philo->t_last_eat = table->t_start;
-	while (1)
+	while (table->end == 0)
 	{
 		pthread_mutex_lock(&table->mutex[philo->id_philo]);
 		status_time(philo, table, "has taken a fork", 0);
@@ -58,9 +58,10 @@ void	*thread_philo(void *data)
 		pthread_mutex_unlock(&table->mutex[post]);
 		status_time(philo, table, "is sleeping", table->info->t_sleep);
 		status_time(philo, table, "is thinking", 0);
-		if (table->info->max_eat == philo->n_eat)
+		if (table->info->max_eat != 0 && table->info->max_eat == philo->n_eat)
 			table->end = 1;
 	}
 	table->end = 1;
+	printf("\n \t FIN\n");
 	return (NULL);
 }

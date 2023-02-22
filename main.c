@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 15:45:00 by tvillare          #+#    #+#             */
-/*   Updated: 2023/02/20 15:54:09 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/02/22 12:50:54 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,16 @@ static int	created_philo(t_table *table)
 	int max;
 
 	max = table->info->n_philo;
-	count = 0;
+	count = -1;
 	//printf("n%d", table->info->n_philo);
-	printf("count philo %d\n", max);
+	while (max > ++count)
+	{
+		pthread_mutex_init(&table->mutex[count], NULL);
+		table->stats[count] = malloc(1 * sizeof(t_philo));
+		printf("%d", count);
+	}
+	count = 0;
+	printf("\ncount philo %d\n", max);
 	while (max > count)
 	{
 		pthread_mutex_init(&table->mutex[count], NULL);
@@ -84,5 +91,6 @@ int	main(int argc, char **argv)
 	gettimeofday(&table.t_start, NULL);
 	if (created_philo(&table) != 0)
 		return (1);
+	printf("\nSUPER \t FINNNN\n");
 	return (0);
 }
