@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 13:33:04 by tvillare          #+#    #+#             */
-/*   Updated: 2023/02/22 16:11:39 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/02/22 18:18:52 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	status_time(t_philo *philo, t_table *table, char *status, int time)
 	{
 		gettimeofday(&philo->t_end, NULL);
 		usleep(time);
-		printf("%06d %d %s %d\n", (philo->t_end.tv_usec - table->t_start.tv_usec) ,philo->id_philo, status, philo->n_eat);
+		printf("%06ld %d %s %d\n", (((philo->t_end.tv_sec - table->t_start.tv_sec) * 1000) + ((philo->t_end.tv_usec - table->t_start.tv_usec) / 1000)), philo->id_philo, status, philo->n_eat);
 	}
 }
 

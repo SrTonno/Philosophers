@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 15:45:00 by tvillare          #+#    #+#             */
-/*   Updated: 2023/02/22 17:17:11 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/02/22 17:54:11 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,6 @@ int	main(int argc, char **argv)
 	table.philo = malloc(table.info->n_philo + 1 * sizeof(pthread_t));
 	table.mutex = malloc(table.info->n_philo + 1 * sizeof(pthread_mutex_t));
 	table.stats = malloc(table.info->n_philo + 1 * sizeof(t_philo *));
-	/*while (table.info->n_philo > count)
-	{
-		printf("%d\n", count);
-		pthread_mutex_init(&table.mutex[count++], NULL);
-	}*/
 	printf("count philo %d / max_eat : %d\n", table.info->n_philo,  table.info->max_eat);
 	gettimeofday(&table.t_start, NULL);
 	if (created_philo(&table) != 0)
