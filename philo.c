@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 13:33:04 by tvillare          #+#    #+#             */
-/*   Updated: 2023/02/22 13:03:08 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/02/22 16:11:39 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,12 @@ static int	find_post(int id, int max)
 static void	status_time(t_philo *philo, t_table *table, char *status, int time)
 {
 	(void) table;
-	gettimeofday(&philo->t_end, NULL);
-	usleep(time);
-	printf("%06d %d %s %d\n", (philo->t_end.tv_usec - table->t_start.tv_usec) ,philo->id_philo, status, philo->n_eat);
+	if (table->end == 0)
+	{
+		gettimeofday(&philo->t_end, NULL);
+		usleep(time);
+		printf("%06d %d %s %d\n", (philo->t_end.tv_usec - table->t_start.tv_usec) ,philo->id_philo, status, philo->n_eat);
+	}
 }
 
 void	*thread_philo(void *data)
@@ -61,7 +64,7 @@ void	*thread_philo(void *data)
 		if (table->info->max_eat != 0 && table->info->max_eat == philo->n_eat)
 			table->end = 1;
 	}
-	table->end = 1;
+	//table->end = 1;
 	printf("\n \t FIN\n");
 	return (NULL);
 }

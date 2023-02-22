@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:06:51 by tvillare          #+#    #+#             */
-/*   Updated: 2023/02/22 13:05:04 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/02/22 16:45:03 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,28 +27,35 @@ static int check_time_die(t_table *table)
 	}*/
 	return (1);
 }
-
+/*
 static void destroy_philo(t_table *table)
 {
-	int	count;
-	
-}
+	int	index;
+
+	index = 0;
+	printf("INICIO DE LA DESTRUCION\n");
+	while (table->philo[index] != '\0')
+		pthread_detach(table->philo[index++]);
+	free (table->philo);
+}*/
 
 void sniffer_philo(t_table *table)
 {
 	int	i;
 
-	printf("\n\tStart snifer\n");
+	printf("\n\tStart sniffer\n");
 	while (1)
 	{
 		i = -1;
 		if (check_time_die(table) != 1)
 		{
+			table->end = 2;
 			printf("\nDIE\n");
 		}
 		else if (table->end == 1)
 		{
-			printf("\nFIN de commer\n");
+			//printf("\nFIN de commer\n");
+			//destroy_philo(table);
 			break ;
 		}
 	}

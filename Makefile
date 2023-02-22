@@ -4,7 +4,7 @@ include colors.mk
 ###############################################################################
 CFILES		= \
 			ft_atoi.c ft_isdigit.c \
-			main.c philo.c sniffer_philo.c
+			main.c philo.c sniffer_philo.c check_input.c
 OBJS	=	${CFILES:.c=.o}
 
 ###############################################################################
@@ -18,7 +18,7 @@ NLIBRARY= libft.a
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra
 OPGRAFIC = -lmlx -framework OpenGL -framework AppKit
-FSANITIZE = -fsanitize=address -g
+FSANITIZE = -fsanitize=address -pthread
 
 AR = ar
 ARFLAGS = -rcs
@@ -32,7 +32,7 @@ LIBFT = $(OLIBFT) $(OPRINTF) $(OGNL)
 all: ${NAME}
 
 ${NAME}:  ${OBJS}
-	@${CC} ${CFLAGS} ${OBJS} -o $@ -pthread
+	@${CC} ${CFLAGS} ${OBJS} -o $@ -pthread ${FSANITIZE}
 	@echo "${God}${Green}Created '${NAME}'.${NoColor}"
 
 git: fclean

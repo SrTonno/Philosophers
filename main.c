@@ -6,12 +6,12 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 15:45:00 by tvillare          #+#    #+#             */
-/*   Updated: 2023/02/22 12:50:54 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/02/22 17:17:11 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
+/*
 static t_info	*save_info(char **data, int count)
 {
 	t_info *info;
@@ -26,7 +26,7 @@ static t_info	*save_info(char **data, int count)
 	else
 		info->max_eat = 0;
 	return (info);
-}
+}*/
 
 static int	created_philo(t_table *table)
 {
@@ -34,14 +34,6 @@ static int	created_philo(t_table *table)
 	int max;
 
 	max = table->info->n_philo;
-	count = -1;
-	//printf("n%d", table->info->n_philo);
-	while (max > ++count)
-	{
-		pthread_mutex_init(&table->mutex[count], NULL);
-		table->stats[count] = malloc(1 * sizeof(t_philo));
-		printf("%d", count);
-	}
 	count = 0;
 	printf("\ncount philo %d\n", max);
 	while (max > count)
@@ -71,12 +63,9 @@ int	main(int argc, char **argv)
 
 	count = 0;
 	printf("%d\n", argc);
-	if (argc < 5 || argc > 6)
-	{
-		printf("Error:\n nummeros de parametros incorrectos");
-		return (1);
-	}
-	table.info = save_info(argv, argc);
+	table.info = check_input(argv, argc);
+	if (table.info == NULL)
+		return (0);
 	table.id_tmp = 0;
 	table.end = 0;
 	table.philo = malloc(table.info->n_philo + 1 * sizeof(pthread_t));
