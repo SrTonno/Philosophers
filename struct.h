@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 12:32:34 by tvillare          #+#    #+#             */
-/*   Updated: 2023/02/18 18:04:40 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/02/23 19:12:03 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct	s_table
 {
 	pthread_mutex_t	*mutex;
 	int				id_tmp;
+	pthread_mutex_t	prot_end;
 	int				end;
 	struct timeval	t_start;
 	pthread_t		*philo;

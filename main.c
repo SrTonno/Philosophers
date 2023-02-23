@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 15:45:00 by tvillare          #+#    #+#             */
-/*   Updated: 2023/02/23 16:52:17 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/02/23 19:26:32 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ static int	created_philo(t_table *table)
 	{
 		pthread_mutex_init(&table->mutex[count], NULL);
 		table->stats[count] = malloc(1 * sizeof(t_philo));
-		gettimeofday(&table->stats[count]->t_last_eat, NULL);
 		if ((pthread_create(&table->philo[count++], NULL, thread_philo, table)) != 0)
 		{
 			printf("Error creating the thread. Code ");
@@ -72,6 +71,7 @@ int	main(int argc, char **argv)
 	table.philo = malloc(table.info->n_philo + 1 * sizeof(pthread_t));
 	table.mutex = malloc(table.info->n_philo + 1 * sizeof(pthread_mutex_t));
 	table.stats = malloc(table.info->n_philo + 1 * sizeof(t_philo *));
+	pthread_mutex_init(&table.prot_end, NULL);
 	printf("count philo %d / max_eat : %d\n", table.info->n_philo,  table.info->max_eat);
 	gettimeofday(&table.t_start, NULL);
 	if (created_philo(&table) != 0)

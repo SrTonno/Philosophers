@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:06:51 by tvillare          #+#    #+#             */
-/*   Updated: 2023/02/23 17:03:06 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/02/23 19:28:49 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ static int check_time_die(t_table *table)
 	{
 		if (time_to_milis(table->stats[count]->t_last_eat, t_stop) > (long)table->info->t_die)
 		{
-			printf("DIE %06ld, %d", time_to_milis(table->stats[count]->t_last_eat, t_stop), table->info->t_die);
+			printf("DIE %06ld, die en %d, philo %d", time_to_milis(table->stats[count]->t_last_eat, t_stop), table->info->t_die, count);
 			return (0);
 		}
 	}
 	return (1);
 }
-/*
+
 static void destroy_philo(t_table *table)
 {
 	int	index;
@@ -41,7 +41,6 @@ static void destroy_philo(t_table *table)
 		pthread_detach(table->philo[index++]);
 	free (table->philo);
 }
-*/
 void sniffer_philo(t_table *table)
 {
 	int	i;
@@ -53,15 +52,18 @@ void sniffer_philo(t_table *table)
 		i = -1;
 		if (check_time_die(table) != 1)
 		{
+			pthread_mutex_lock(&table->prot_end);
 			table->end = 2;
+			pthread_mutex_unlock(&table->prot_end);
 			printf("\nDIE\n");
-			return ;
+			break; ;
 		}
 		if (table->end == 1)
 		{
 			printf("\nFIN de commer\n");
-			//destroy_philo(table);
+
 			break ;
 		}
 	}
+	destroy_philo(table);
 }
