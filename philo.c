@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 13:33:04 by tvillare          #+#    #+#             */
-/*   Updated: 2023/02/22 18:18:52 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/02/23 17:29:28 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ static void	status_time(t_philo *philo, t_table *table, char *status, int time)
 	(void) table;
 	if (table->end == 0)
 	{
+		usleep(time * 1000);
 		gettimeofday(&philo->t_end, NULL);
-		usleep(time);
-		printf("%06ld %d %s %d\n", (((philo->t_end.tv_sec - table->t_start.tv_sec) * 1000) + ((philo->t_end.tv_usec - table->t_start.tv_usec) / 1000)), philo->id_philo, status, philo->n_eat);
+		printf("%06ld %d %s %d\n", time_to_milis(table->t_start, philo->t_end), philo->id_philo, status, philo->n_eat);
 	}
 }
 
@@ -44,10 +44,10 @@ void	*thread_philo(void *data)
 	philo->n_eat = 0;
 	post = find_post(philo->id_philo, table->info->n_philo);
 	printf("Philo %d-%d\n", philo->id_philo, post);
+	//philo->t_last_eat = table->t_start;
 	if (philo->id_philo / 2 == 0)
 		usleep(40);
 	//printf("%06d\n", table->t_start.tv_usec);
-	philo->t_last_eat = table->t_start;
 	while (table->end == 0)
 	{
 		pthread_mutex_lock(&table->mutex[philo->id_philo]);
@@ -57,12 +57,12 @@ void	*thread_philo(void *data)
 		status_time(philo, table, "is eating", table->info->t_eat);
 		gettimeofday(&philo->t_last_eat, NULL);
 		philo->n_eat++;
+		if (table->info->max_eat != 0 && table->info->max_eat == philo->n_eat)
+			table->end = 1;
 		pthread_mutex_unlock(&table->mutex[philo->id_philo]);
 		pthread_mutex_unlock(&table->mutex[post]);
 		status_time(philo, table, "is sleeping", table->info->t_sleep);
 		status_time(philo, table, "is thinking", 0);
-		if (table->info->max_eat != 0 && table->info->max_eat == philo->n_eat)
-			table->end = 1;
 	}
 	//table->end = 1;
 	printf("\n \t FIN\n");

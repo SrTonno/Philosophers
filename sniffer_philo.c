@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:06:51 by tvillare          #+#    #+#             */
-/*   Updated: 2023/02/22 16:45:03 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/02/23 17:03:06 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,20 @@
 
 static int check_time_die(t_table *table)
 {
-	//int	count;
-	//struct timeval	t_stop;
+	int	count;
+	struct timeval	t_stop;
 
 	(void)table;
-	/*count = 0;
+	count = -1;
 	gettimeofday(&t_stop, NULL);
-	while (table->info->max_eat > count)
+	while (table->info->n_philo > ++count)
 	{
-		if ((t_stop.tv_usec - table->stats[count]->t_last_eat.tv_usec) > table->info->t_die * 1000)
+		if (time_to_milis(table->stats[count]->t_last_eat, t_stop) > (long)table->info->t_die)
+		{
+			printf("DIE %06ld, %d", time_to_milis(table->stats[count]->t_last_eat, t_stop), table->info->t_die);
 			return (0);
-	}*/
+		}
+	}
 	return (1);
 }
 /*
@@ -37,12 +40,13 @@ static void destroy_philo(t_table *table)
 	while (table->philo[index] != '\0')
 		pthread_detach(table->philo[index++]);
 	free (table->philo);
-}*/
-
+}
+*/
 void sniffer_philo(t_table *table)
 {
 	int	i;
 
+	(void)table;
 	printf("\n\tStart sniffer\n");
 	while (1)
 	{
@@ -51,10 +55,11 @@ void sniffer_philo(t_table *table)
 		{
 			table->end = 2;
 			printf("\nDIE\n");
+			return ;
 		}
-		else if (table->end == 1)
+		if (table->end == 1)
 		{
-			//printf("\nFIN de commer\n");
+			printf("\nFIN de commer\n");
 			//destroy_philo(table);
 			break ;
 		}
