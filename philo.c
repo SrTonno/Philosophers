@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 13:33:04 by tvillare          #+#    #+#             */
-/*   Updated: 2023/02/23 19:30:38 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/02/23 20:26:58 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	find_post(int id, int max)
 {
 	if (id == 0)
-		return (max);
+		return (max - 1);
 	return (id - 1);
 }
 
