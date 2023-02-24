@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:06:51 by tvillare          #+#    #+#             */
-/*   Updated: 2023/02/23 20:31:18 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/02/24 12:45:06 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,11 @@ static void destroy_philo(t_table *table)
 }
 void sniffer_philo(t_table *table)
 {
-	int	i;
-
 	(void)table;
 	printf("\n\tStart sniffer\n");
 	while (1)
 	{
-		i = -1;
+		//printf("Ronda++");
 		if (check_time_die(table) != 1)
 		{
 			pthread_mutex_lock(&table->prot_end);

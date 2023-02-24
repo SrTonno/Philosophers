@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 13:33:04 by tvillare          #+#    #+#             */
-/*   Updated: 2023/02/23 20:26:58 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/02/24 13:03:01 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ static int	find_post(int id, int max)
 
 static void	status_time(t_philo *philo, t_table *table, char *status, int time)
 {
-	(void) table;
 	if (table->end == 0)
 	{
 		usleep(time * 1000);
@@ -54,6 +53,7 @@ void	*thread_philo(void *data)
 	while (table->end == 0)
 	{
 		pthread_mutex_lock(&table->mutex[philo->id_philo]);
+		printf("Hola %d\n", id);
 		status_time(philo, table, "has taken a fork", 0);
 		pthread_mutex_lock(&table->mutex[post]);
 		status_time(philo, table, "has taken a fork", table->info->t_eat);

@@ -18,7 +18,7 @@ NLIBRARY= libft.a
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra
 OPGRAFIC = -lmlx -framework OpenGL -framework AppKit
-FSANITIZE = -fsanitize=address -pthread
+FSANITIZE = -fsanitize=address -g
 
 AR = ar
 ARFLAGS = -rcs
@@ -32,7 +32,7 @@ LIBFT = $(OLIBFT) $(OPRINTF) $(OGNL)
 all: ${NAME}
 
 ${NAME}:  ${OBJS}
-	@${CC} ${CFLAGS} ${OBJS} -o $@ -pthread ${FSANITIZE}
+	@${CC} ${CFLAGS} ${OBJS} -o $@ -pthread
 	@echo "${God}${Green}Created '${NAME}'.${NoColor}"
 
 git: fclean
