@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 13:33:04 by tvillare          #+#    #+#             */
-/*   Updated: 2023/02/24 13:03:01 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/02/24 17:39:46 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	status_time(t_philo *philo, t_table *table, char *status, int time)
 {
 	if (table->end == 0)
 	{
-		usleep(time * 1000);
+		usleep((time * 1000));
 		gettimeofday(&philo->t_end, NULL);
 		if (table->end == 0)
 			printf("%06ld %d %s %d\n", time_to_milis(table->t_start, philo->t_end), philo->id_philo, status, philo->n_eat);
@@ -39,24 +39,21 @@ void	*thread_philo(void *data)
 
 	table = (t_table *)data;
 	id = table->id_tmp;
-	philo = table->stats[id];
+	philo = &table->stats[id];
 	philo->id_philo = id;
 
 	philo->n_eat = 0;
 	post = find_post(philo->id_philo, table->info->n_philo);
-	printf("Philo %d-%d\n", philo->id_philo, post);
-	//philo->t_last_eat = table->t_start;
-	gettimeofday(&table->stats[id]->t_last_eat, NULL);
+	//printf("Philo %d-%d\n", philo->id_philo, post);
+	gettimeofday(&table->stats[id].t_last_eat, NULL);
 	if (philo->id_philo / 2 == 0)
 		usleep(40);
-	//printf("%06d\n", table->t_start.tv_usec);
 	while (table->end == 0)
 	{
 		pthread_mutex_lock(&table->mutex[philo->id_philo]);
-		printf("Hola %d\n", id);
 		status_time(philo, table, "has taken a fork", 0);
 		pthread_mutex_lock(&table->mutex[post]);
-		status_time(philo, table, "has taken a fork", table->info->t_eat);
+		status_time(philo, table, "has taken a fork", 0);
 		status_time(philo, table, "is eating", table->info->t_eat);
 		gettimeofday(&philo->t_last_eat, NULL);
 		philo->n_eat++;
@@ -70,6 +67,7 @@ void	*thread_philo(void *data)
 		pthread_mutex_unlock(&table->mutex[post]);
 		status_time(philo, table, "is sleeping", table->info->t_sleep);
 		status_time(philo, table, "is thinking", 0);
+		//printf("Philo %d-%d\n", philo->id_philo, post);
 	}
 	//table->end = 1;
 	printf("\n \t FIN\n");

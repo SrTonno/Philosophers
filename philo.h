@@ -27,7 +27,9 @@
 int		ft_atoi(const char *str);
 int		ft_isdigit(int c);
 t_info	*check_input(char **data, int count);
-long		time_to_milis(struct timeval t_start, struct timeval t_end);
+long	time_to_milis(struct timeval t_start, struct timeval t_end);
+void	*ft_calloc(size_t count, size_t size);
+size_t	ft_strlen(const char *s);
 ///Philo
 void	*thread_philo(void *data);
 void	sniffer_philo(t_table *table);
