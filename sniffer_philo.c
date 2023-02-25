@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:06:51 by tvillare          #+#    #+#             */
-/*   Updated: 2023/02/25 13:29:47 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/02/25 18:44:49 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 static int check_time_die(t_table *table)
 {
-	int	count;
+	int				count;
 	struct timeval	t_stop;
 
 	(void)table;
 	count = -1;
 	gettimeofday(&t_stop, NULL);
-	while (table->info->n_philo > ++count)
+	while (table->id_tmp > ++count)
 	{
 		if (time_to_milis(table->stats[count].t_last_eat, t_stop) > table->info->t_die)
 		{
@@ -37,14 +37,18 @@ static void destroy_philo(t_table *table)
 
 	index = 0;
 	printf("INICIO DE LA DESTRUCION\n");
-	while (table->philo[index] != '\0')
+	while (table->info->n_philo >= index)
 		pthread_detach(table->philo[index++]);
 	free (table->philo);
 }
-void sniffer_philo(t_table *table)
+void	*sniffer_philo(void *data)
 {
+	t_table	*table;
+
+	table = (t_table *)data;
 	(void)table;
-	printf("\n\tStart sniffer\n");
+	usleep(5000);
+	printf("\n\tStart sniffer 2\n");
 	while (1)
 	{
 		//printf("Ronda++");
@@ -62,6 +66,8 @@ void sniffer_philo(t_table *table)
 
 			break ;
 		}
+		usleep(700);
 	}
 	destroy_philo(table);
+	return (NULL);
 }

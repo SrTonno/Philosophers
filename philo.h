@@ -32,7 +32,7 @@ void	*ft_calloc(size_t count, size_t size);
 size_t	ft_strlen(const char *s);
 ///Philo
 void	*thread_philo(void *data);
-void	sniffer_philo(t_table *table);
+void	*sniffer_philo(void *table);
 
 
 

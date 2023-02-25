@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 15:45:00 by tvillare          #+#    #+#             */
-/*   Updated: 2023/02/25 13:43:48 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/02/25 18:36:12 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@ static int	created_philo(t_table *table)
 	max = table->info->n_philo;
 	count = 0;
 	printf("\ncount philo %d\n", max);
+	pthread_create(&table->sniffer, NULL, sniffer_philo, table);
 	while (max > count)
 	{
+		printf("Philo %d\n", count);
 		//table->stats[count].id_philo = table->id_tmp;
 		pthread_mutex_init(&table->mutex[count], NULL);
 		if ((pthread_create(&table->philo[count++], NULL, thread_philo, table)) != 0)
@@ -32,7 +34,11 @@ static int	created_philo(t_table *table)
 		usleep(200);
 		table->id_tmp++;
 	}
-	sniffer_philo(table);
+	//sniffer_philo(table);
+	count = 0;
+	while (max > count)
+		pthread_join(table->philo[count++], NULL);
+	pthread_detach(table->sniffer);
 	return (0);
 }
 
