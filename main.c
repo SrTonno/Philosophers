@@ -6,12 +6,12 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 15:45:00 by tvillare          #+#    #+#             */
-/*   Updated: 2023/02/24 16:26:26 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/02/25 13:43:48 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
+//se asicio id incorecto incorrecto al philo
 static int	created_philo(t_table *table)
 {
 	int	count;
@@ -22,13 +22,14 @@ static int	created_philo(t_table *table)
 	printf("\ncount philo %d\n", max);
 	while (max > count)
 	{
+		//table->stats[count].id_philo = table->id_tmp;
 		pthread_mutex_init(&table->mutex[count], NULL);
 		if ((pthread_create(&table->philo[count++], NULL, thread_philo, table)) != 0)
 		{
 			printf("Error creating the thread. Code ");
 			return (1);
 		}
-		usleep(60);
+		usleep(200);
 		table->id_tmp++;
 	}
 	sniffer_philo(table);
