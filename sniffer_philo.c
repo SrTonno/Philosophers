@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:06:51 by tvillare          #+#    #+#             */
-/*   Updated: 2023/02/25 18:44:49 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/02/27 20:27:59 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ static int check_time_die(t_table *table)
 	{
 		if (time_to_milis(table->stats[count].t_last_eat, t_stop) > table->info->t_die)
 		{
-			printf("DIE %06ld, die in %d, philo %d, count %d", time_to_milis(table->stats[count].t_last_eat, t_stop), table->info->t_die, table->stats[count].id_philo, count);
+			printf("DIE %06ld, die in %d, philo %d, count %d, eat %d", time_to_milis(table->stats[count].t_last_eat, t_stop), table->info->t_die, table->stats[count].id_philo + 1, count + 1, table->stats[count].n_eat);
+			printf("\ntime eat %d, sleep %d\n", table->info->t_eat, table->info->t_sleep);
 			return (0);
 		}
 	}
@@ -47,8 +48,7 @@ void	*sniffer_philo(void *data)
 
 	table = (t_table *)data;
 	(void)table;
-	usleep(5000);
-	printf("\n\tStart sniffer 2\n");
+	usleep(1000);
 	while (1)
 	{
 		//printf("Ronda++");
@@ -66,7 +66,7 @@ void	*sniffer_philo(void *data)
 
 			break ;
 		}
-		usleep(700);
+		usleep(1000);
 	}
 	destroy_philo(table);
 	return (NULL);

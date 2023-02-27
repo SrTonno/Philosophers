@@ -4,7 +4,7 @@ include colors.mk
 ###############################################################################
 CFILES		= \
 			ft_atoi.c ft_isdigit.c \
-			main.c philo.c sniffer_philo.c check_input.c utils.c
+			main.c philo.c sniffer_philo.c check_input.c utils.c actions.c
 OBJS	=	${CFILES:.c=.o}
 
 ###############################################################################
