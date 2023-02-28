@@ -41,7 +41,7 @@ git: fclean
 	@git add . ;
 	@read -p "Name the commit: " commit ;\
 	git commit -m "$$commit" ;\
-	read -p "Check the files" -t 20;
+	read -p "Check the files..." -t 20;
 	git push origin master ;
 
 normi:
