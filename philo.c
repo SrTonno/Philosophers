@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 13:33:04 by tvillare          #+#    #+#             */
-/*   Updated: 2023/02/27 20:37:26 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/02/28 15:08:59 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	status_time(t_philo *philo, t_table *table, char *status, int time)
 		milisleep(time, table);
 		gettimeofday(&philo->t_end, NULL);
 		if (table->end == 0)
-			printf("%06ld %d %s %d\n", time_to_milis(table->t_start, philo->t_end), philo->id_philo + 1, status, philo->n_eat);
+			printf("%06ld %d %s\n", time_to_milis(table->t_start, philo->t_end), philo->id_philo + 1, status);
 	}
 }
 
@@ -44,10 +44,10 @@ void	*thread_philo(void *data)
 
 	philo->n_eat = 0;
 	post = find_post(philo->id_philo, table->info->n_philo);
-	printf("Philo %d-%d\n", philo->id_philo, post);
+	//printf("Philo %d-%d\n", philo->id_philo, post);
 	gettimeofday(&table->stats[id].t_last_eat, NULL);
-	if (philo->id_philo / 2 != 0)
-		usleep(40);
+	if (philo->id_philo + 1 / 2 == 0)
+		usleep(100);
 	while (table->end == 0)
 	{
 		get_fork(table, philo, post);

@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 15:45:00 by tvillare          #+#    #+#             */
-/*   Updated: 2023/02/27 20:05:57 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/02/28 16:22:13 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ static int	created_philo(t_table *table)
 	while (max > count++)
 		pthread_mutex_init(&table->mutex[count], NULL);
 	count = 0;
-	printf("\ncount philo %d\n", max);
+	//printf("\ncount philo %d\n", max);
 	pthread_create(&table->sniffer, NULL, sniffer_philo, table);
 	while (max > count)
 	{
-		printf("Philo %d\n", count);
+		//printf("Philo %d\n", count);
 		//table->stats[count].id_philo = table->id_tmp;
 		//pthread_mutex_init(&table->mutex[count], NULL);
 		if ((pthread_create(&table->philo[count++], NULL, thread_philo, table)) != 0)
@@ -34,7 +34,7 @@ static int	created_philo(t_table *table)
 			printf("Error creating the thread. Code ");
 			return (1);
 		}
-		usleep(100);
+		usleep(50);
 		table->id_tmp++;
 	}
 	//sniffer_philo(table);
@@ -54,7 +54,7 @@ int	main(int argc, char **argv)
 	int			count;
 
 	count = 0;
-	printf("%d\n", argc);
+	//printf("%d\n", argc);
 	table.info = check_input(argv, argc);
 	if (table.info == NULL)
 		return (0);
@@ -64,10 +64,10 @@ int	main(int argc, char **argv)
 	table.mutex = ft_calloc(table.info->n_philo + 1, sizeof(pthread_mutex_t));
 	table.stats = ft_calloc(table.info->n_philo + 1, sizeof(t_philo));
 	pthread_mutex_init(&table.prot_end, NULL);
-	printf("count philo %d / max_eat : %d\n", table.info->n_philo,  table.info->max_eat);
+	//printf("count philo %d / max_eat : %d\n", table.info->n_philo,  table.info->max_eat);
 	gettimeofday(&table.t_start, NULL);
 	if (created_philo(&table) != 0)
 		return (1);
-	printf("\nSUPER \t FINNNN\n");
+	//printf("\nSUPER \t FINNNN\n");
 	return (0);
 }
