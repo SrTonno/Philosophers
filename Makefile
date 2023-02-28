@@ -42,7 +42,7 @@ git: fclean
 	@read -p "Name the commit: " commit ;\
 	git commit -m "$$commit" ;\
 	read -p "Check the files..." -t 20;
-	git push origin master ;
+	@git push origin master ;
 
 normi:
 	@echo "${BICyan}>>Check Files with ${BIRed}ERROR${BICyan} norminette<<${NoColor}"
