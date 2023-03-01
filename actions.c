@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 18:49:02 by tvillare          #+#    #+#             */
-/*   Updated: 2023/02/28 15:25:38 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/03/01 11:06:21 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ void	get_fork(t_table *table, t_philo *philo, int post)
 {
 	pthread_mutex_lock(&table->mutex[philo->id_philo]);
 	status_time(philo, table, "has taken a fork", 0);
-	//printf("actual: %d\n",philo->id_philo + 1);
+	printf("%d\n", philo->id_philo);
 	pthread_mutex_lock(&table->mutex[post]);
 	status_time(philo, table, "has taken a fork", 0);
-	//printf("post: %d\n",post + 1);
+	printf("%d\n", post);
 }
 
 void	dinner(t_table *table, t_philo *philo, int post)

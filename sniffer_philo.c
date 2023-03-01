@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:06:51 by tvillare          #+#    #+#             */
-/*   Updated: 2023/02/28 16:23:02 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/02/28 19:56:28 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	*sniffer_philo(void *data)
 
 	table = (t_table *)data;
 	(void)table;
-	usleep(1000);
+	usleep(5000);
 	while (1)
 	{
 		//printf("Ronda++");
