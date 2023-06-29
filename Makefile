@@ -2,76 +2,75 @@ include colors.mk
 ###############################################################################
 #                                              FILES                          #
 ###############################################################################
-CFILES		= \
-			ft_atoi.c ft_isdigit.c \
-			main.c philo.c sniffer_philo.c check_input.c utils.c actions.c
-OBJS	=	${CFILES:.c=.o}
+include colors.mk
 
-###############################################################################
-#                                              SETTINGS                       #
-###############################################################################
-NAME = philo
-HDRS = philo.h
-
-NLIBRARY= libft.a
+NAME = p
 
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra
-OPGRAFIC = -lmlx -framework OpenGL -framework AppKit
+CFLAGS = -Wall -Wextra -Werror
+CFLAGS += -pthread
 FSANITIZE = -fsanitize=address -g
 
-AR = ar
-ARFLAGS = -rcs
-RM = rm -f
+SRCSDIR = ./srcs/
+SRCSCFILES = ft_atoi.c ft_isdigit.c \
+			main.c philo.c sniffer_philo.c check_input.c utils.c actions.c
 
-LIBFT = $(OLIBFT) $(OPRINTF) $(OGNL)
+#BINDIR = ${addprefix ${SRCSDIR}, builtins/}
+#BINCFILES = ft_export.c ft_unset.c ft_pwd.c ft_cd.c ft_echo.c ft_env.c ft_exit.c builtin_utils.c
 
-###############################################################################
-#                                              OPTIONS                        #
-###############################################################################
+
+SRCS =	${addprefix ${SRCSDIR}, ${SRCSCFILES}} \
+		#${addprefix ${BINDIR}, ${BINCFILES}} \
+
+OBJS = ${SRCS:.c=.o}
+
+LFT_NAME = libft.a
+LIB_DIR = ./libft/
+
+INC = -I ./includes/ -I ${LIB_DIR}includes/
+
+
+RM = rm -rf
+################################################################################
+.PHONY: all re fclean clean test setup
+################################################################################
 all: ${NAME}
 
-${NAME}:  ${OBJS}
-	@${CC} ${CFLAGS} ${OBJS} -o $@ -pthread
-	@echo "${God}${Green}Created '${NAME}'.${NoColor}"
+test: ${NAME}
+	./${NAME}
 
-git: fclean
-	@echo "\t${BIPurple}>>Push To Git<<${NoColor}"
-	@git remote -v | cut -d " " -f 1 | uniq
-	@git add . ;
-	@read -p "Name the commit: " commit ;\
-	git commit -m "$$commit" ;\
-	read -p "Check the files..." -t 20;
-	@git push origin master ;
+retest: re
+	./${NAME}
 
-normi:
-	@echo "${BICyan}>>Check Files with ${BIRed}ERROR${BICyan} norminette<<${NoColor}"
-	@norminette -R CheckForbiddenSourceHeader | grep Error! | grep -v tester
-	@echo "Total Errores $$(norminette -R CheckForbiddenSourceHeader | grep -v Error! | grep -v tester | wc -l)"
+${NAME}: ${OBJS}
+	@${CC}  ${CFLAGS} ${OBJS} -o ${NAME}
+	@printf "${God} ${BIBlue}Mini${NoColor}🐚 de ${BIPurple}LaLora${NoColor}${God}\n"
 
-.c.o:
-		@${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
+${LFT_NAME}:
+	@make -s -C ${LIB_DIR}
 
-###############################################################################
-clean:
-		@${RM} ${OBJS}
-		@echo "${Bad}${Red}Delete .o.${NoColor}"
-
-fclean: clean
-		@${RM} ${NAME}
-		@echo "${Bad}${Red}Delete '${NAME}'.${NoColor}"
+%.o: %.c
+	@${CC} -c ${CFLAGS} $^ -o $@ ${INC}
+	@printf "${BIGreen}[Compiled]${BIBlue} $^ ${NoColor}to ${BIPurple}$@ ${NoColor}                       \r"
 
 re: fclean all
 
-help:
-	@echo "${UGreen}Options of MakeFile:${NoColor}"
-	@echo "Used: make [options]"
-	@echo "\t${BICyan}Default:${NoColor} Created '${NAME}'"
-	@echo "\t${IRed}clean:${NoColor} Delete '.o'."
-	@echo "\t${BIRed}fclean:${NoColor} Delete'.o', '${NLIBRARY}'"
-	@echo "\t${BICyan}re:${NoColor} Delete '.o', '${NLIBRARY}', '${NAME}' and creates '${NAME}'"
-	@echo "\t${BIPurple}git:${NoColor} Push to git."
-	@echo "\t${BICyan}normi:${NoColor} Check file with Error the norminette."
-	@echo "MakeFile by ${UBlue}tvillare${NoColor}."
+clean:
+	@make -s -C ${LIB_DIR} clean
+	@${RM} ${OBJS}
+	@printf "${Bad}${BIRed}Delete *.o${NoColor}${Bad}\n"
 
-.PHONY = all clean fclean re help normi git
+fclean: clean
+	@make -s -C ${LIB_DIR} fclean
+	@${RM} ${NAME}
+	@printf "${Bad}${BIRed}Delete ${NAME}${NoColor}${Bad}\n"
+
+
+setup:
+	@rm -rf $$HOME/.brew && git clone https://github.com/Homebrew/brew $$HOME/goinfre/.brew
+	#echo 'export PATH=$$HOME/goinfre/.brew/bin:$$PATH' >> $$HOME/.zshrc && source $$HOME/.zshrc
+	@brew update
+	@brew install readline
+	@printf "${God}${BICyan}Install brew and library in MAC.${God}${NoColor}"
+################################################################################
+
