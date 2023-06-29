@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 13:33:04 by tvillare          #+#    #+#             */
-/*   Updated: 2023/03/01 11:11:03 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/06/29 20:41:36 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,8 @@ void	*thread_philo(void *data)
 	post = find_post(philo->id_philo, table->info->n_philo);
 	//printf("Philo %d-%d\n", philo->id_philo, post);
 	gettimeofday(&table->stats[id].t_last_eat, NULL);
-	if (philo->id_philo + 1 / 2 == 0)
-	{
+	if (philo->id_philo + 1 / 2 == 0)// slep no funcioa en hilos
 		usleep(100);
-		//printf("Hola\n");
-	}
 	while (table->end == 0)
 	{
 		get_fork(table, philo, post);
