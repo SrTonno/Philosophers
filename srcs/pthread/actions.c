@@ -6,20 +6,39 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 18:49:02 by tvillare          #+#    #+#             */
-/*   Updated: 2023/03/01 11:06:21 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/07/08 19:39:30 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+static int	find_post(int id, int max)
+{
+	if (id == 0)
+		return (max - 1);
+	return (id - 1);
+}
+
+void swap_fork(int *a, int *b)
+{
+	int swap;
+
+	if (a > b)
+		return ;
+	swap = *a;
+	*a = *b;
+	*b = swap;
+}
+
 void	get_fork(t_table *table, t_philo *philo, int post)
 {
-	pthread_mutex_lock(&table->mutex[philo->id_philo]);
+	post = find_post(philo->id_philo, table->info->n_philo);
+	pthread_mutex_lock(&table->mutex[philo->fork_r]);
 	status_time(philo, table, "has taken a fork", 0);
-	printf("%d\n", philo->id_philo);
-	pthread_mutex_lock(&table->mutex[post]);
+	//printf("&%d\n",philo->id_philo);
+	pthread_mutex_lock(&table->mutex[philo->fork_l]);
 	status_time(philo, table, "has taken a fork", 0);
-	printf("%d\n", post);
+	//printf("%d\n", post);
 }
 
 void	dinner(t_table *table, t_philo *philo, int post)
@@ -39,8 +58,9 @@ void	dinner(t_table *table, t_philo *philo, int post)
 
 void	leave_fork(t_table *table, t_philo *philo, int post)
 {
-	pthread_mutex_unlock(&table->mutex[philo->id_philo]);
-	pthread_mutex_unlock(&table->mutex[post]);
+	post = find_post(philo->id_philo, table->info->n_philo);
+	pthread_mutex_unlock(&table->mutex[philo->fork_r]);
+	pthread_mutex_unlock(&table->mutex[philo->fork_l]);
 	status_time(philo, table, "is sleeping", table->info->t_sleep);
 	status_time(philo, table, "is thinking", 0);
 }

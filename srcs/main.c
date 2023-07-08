@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 15:45:00 by tvillare          #+#    #+#             */
-/*   Updated: 2023/02/28 16:22:13 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/07/08 20:04:18 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,30 +18,27 @@ static int	created_philo(t_table *table)
 	int max;
 
 	max = table->info->n_philo;
-	count = 0;
-	while (max > count++)
+	count = -1;
+	while (max > ++count)
+	{
 		pthread_mutex_init(&table->mutex[count], NULL);
+		gettimeofday(&table->stats[count].t_last_eat, NULL);
+	}
 	count = 0;
-	//printf("\ncount philo %d\n", max);
-	pthread_create(&table->sniffer, NULL, sniffer_philo, table);
 	while (max > count)
 	{
-		//printf("Philo %d\n", count);
-		//table->stats[count].id_philo = table->id_tmp;
-		//pthread_mutex_init(&table->mutex[count], NULL);
 		if ((pthread_create(&table->philo[count++], NULL, thread_philo, table)) != 0)
 		{
 			printf("Error creating the thread. Code ");
 			return (1);
 		}
-		usleep(50);
+		usleep(10);
 		table->id_tmp++;
 	}
-	//sniffer_philo(table);
+	sniffer_philo(table);
 	count = 0;
 	//while (max > count)
 		//pthread_join(table->philo[count++], NULL);
-
 	while (table->end == 0)
 		usleep(100);
 	pthread_detach(table->sniffer);

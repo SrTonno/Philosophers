@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:06:51 by tvillare          #+#    #+#             */
-/*   Updated: 2023/02/28 19:56:28 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/07/08 13:20:56 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int check_time_die(t_table *table)
 		if (time_to_milis(table->stats[count].t_last_eat, t_stop) > table->info->t_die)
 		{
 			status_time(&table->stats[count], table, "died", 0);
-			//printf("DIE %06ld, die in %d, philo %d, count %d, eat %d", time_to_milis(table->stats[count].t_last_eat, t_stop), table->info->t_die, table->stats[count].id_philo + 1, count + 1, table->stats[count].n_eat);
+			printf("DIE %06ld, die in %d, philo %d, count %d, eat %d", time_to_milis(table->stats[count].t_last_eat, t_stop), table->info->t_die, table->stats[count].id_philo + 1, count + 1, table->stats[count].n_eat);
 			//printf("\ntime eat %d, sleep %d\n", table->info->t_eat, table->info->t_sleep);
 			return (0);
 		}
@@ -58,13 +58,11 @@ void	*sniffer_philo(void *data)
 			pthread_mutex_lock(&table->prot_end);
 			table->end = 2;
 			pthread_mutex_unlock(&table->prot_end);
-
 			break ;
 		}
 		if (table->end == 1)
 		{
 			//printf("\nFIN de commer\n");
-
 			break ;
 		}
 		usleep(3000);
