@@ -23,6 +23,10 @@
 
 # include "struct.h"
 
+# define TEXT_FORK "has taken a fork"
+# define TEXT_DINNER "is eating"
+# define TEXT_SLEEP "is sleeping"
+# define TEXT_THINK "is thinking"
 ///Utils
 int		ft_atoi(const char *str);
 int		ft_isdigit(int c);

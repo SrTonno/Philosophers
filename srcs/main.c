@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 15:45:00 by tvillare          #+#    #+#             */
-/*   Updated: 2023/07/08 20:04:18 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/07/09 16:23:02 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int	created_philo(t_table *table)
 		//pthread_join(table->philo[count++], NULL);
 	while (table->end == 0)
 		usleep(100);
-	pthread_detach(table->sniffer);
+	//pthread_detach(table->sniffer);
 	return (0);
 }
 

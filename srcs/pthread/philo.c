@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 13:33:04 by tvillare          #+#    #+#             */
-/*   Updated: 2023/07/08 19:59:08 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/07/09 16:06:54 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	*thread_philo(void *data)
 	//printf("Philo %d-%d\n", philo->id_philo, post);
 	grt_fork(philo, table);
 	printf("Philo %d-%d  //  %d-%d\n", philo->fork_r, philo->fork_l, philo->id_philo, post);
-	if ((philo->id_philo + 1) / 2 == 0)// slep no funcioa en hilos
+	if ((philo->id_philo) / 2 == 0)// slep no funcioa en hilos
 		ft_usleep(80);
 	while (table->end == 0)
 	{
