@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 13:33:04 by tvillare          #+#    #+#             */
-/*   Updated: 2023/07/09 16:06:54 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/09/19 18:27:40 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,45 @@ void grt_fork(t_philo *philo, t_table *table)
 
 }
 
-void	ft_usleep(int i)
+void	ft_usleep(int time)
 {
-	usleep(i);
+	int	i;
+
+	i = 0;
+	while (i++ < 1000)
+	{
+		usleep(time);
+	}
+
+
+}
+/* get current time */
+size_t	get_time(void)
+{
+	struct timeval	t;
+
+	gettimeofday(&t, NULL);
+	return ((t.tv_sec * 1000) + (t.tv_usec / 1000));
+}
+void	tempo(t_table *table, size_t t_slp)
+{
+	size_t	t;
+
+	t = get_time();
+	while (table->end == 0)
+	{
+		if (get_time() - t >= t_slp)
+			break ;
+		usleep(100);
+	}
 }
 
-void	status_time(t_philo *philo, t_table *table, char *status, int time)
+void	status_time(t_philo *philo, t_table *table, char *status, size_t time)
 {
 	if (table->end == 0)
 	{
 		//milisleep(time, table);
-		ft_usleep(time * 1000);
+		tempo(table, time);
 		gettimeofday(&philo->t_end, NULL);
 		if (table->end == 0)
 			printf("%06ld %d %s\n", time_to_milis(table->t_start, philo->t_end), philo->id_philo + 1, status);
@@ -67,8 +95,8 @@ void	*thread_philo(void *data)
 	//printf("Philo %d-%d\n", philo->id_philo, post);
 	grt_fork(philo, table);
 	printf("Philo %d-%d  //  %d-%d\n", philo->fork_r, philo->fork_l, philo->id_philo, post);
-	if ((philo->id_philo) / 2 == 0)// slep no funcioa en hilos
-		ft_usleep(80);
+	if ((philo->id_philo) % 2 == 0)
+		usleep(1000);
 	while (table->end == 0)
 	{
 		get_fork(table, philo, post);

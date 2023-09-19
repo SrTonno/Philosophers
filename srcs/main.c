@@ -6,12 +6,23 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 15:45:00 by tvillare          #+#    #+#             */
-/*   Updated: 2023/07/09 16:23:02 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/09/19 18:32:59 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-//se asicio id incorecto incorrecto al philo
+/*
+1 800 200 200 muere
+5 800 200 200 viven
+5 800 200 200 7 viven y cada uno come 7 veces
+4 410 200 200 viven
+4 310 200 100 mueren
+*/
+
+/* ERRORES
+muerte extraña en tiempos grandes (error de comparacion de tiempo de tiempo)
+*/
+
 static int	created_philo(t_table *table)
 {
 	int	count;
@@ -39,8 +50,8 @@ static int	created_philo(t_table *table)
 	count = 0;
 	//while (max > count)
 		//pthread_join(table->philo[count++], NULL);
-	while (table->end == 0)
-		usleep(100);
+	//while (table->end == 0)
+		//usleep(10);
 	//pthread_detach(table->sniffer);
 	return (0);
 }

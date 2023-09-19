@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:06:51 by tvillare          #+#    #+#             */
-/*   Updated: 2023/07/08 13:20:56 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/09/19 18:50:46 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ static int check_time_die(t_table *table)
 	gettimeofday(&t_stop, NULL);
 	while (table->id_tmp > ++count)
 	{
-		if (time_to_milis(table->stats[count].t_last_eat, t_stop) > table->info->t_die)
+		if (table->info->t_die < time_to_milis(table->stats[count].t_last_eat, t_stop))
 		{
 			status_time(&table->stats[count], table, "died", 0);
-			printf("DIE %06ld, die in %d, philo %d, count %d, eat %d", time_to_milis(table->stats[count].t_last_eat, t_stop), table->info->t_die, table->stats[count].id_philo + 1, count + 1, table->stats[count].n_eat);
+			printf("DIE %06ld, die in %d, philo %d, count %d, eat %d\n", time_to_milis(table->stats[count].t_last_eat, t_stop), table->info->t_die, table->stats[count].id_philo + 1, count + 1, table->stats[count].n_eat);
 			//printf("\ntime eat %d, sleep %d\n", table->info->t_eat, table->info->t_sleep);
 			return (0);
 		}
@@ -65,7 +65,7 @@ void	*sniffer_philo(void *data)
 			//printf("\nFIN de commer\n");
 			break ;
 		}
-		usleep(3000);
+		usleep(4000);
 	}
 	destroy_philo(table);
 	return (NULL);
