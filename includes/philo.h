@@ -41,9 +41,9 @@ void	*thread_philo(void *data);
 void	*sniffer_philo(void *table);
 
 //Aciones
-void	get_fork(t_table *table, t_philo *philo, int post);
-void	dinner(t_table *table, t_philo *philo, int post);
-void	leave_fork(t_table *table, t_philo *philo, int post);
+void	get_fork(t_table *table, t_philo *philo);
+void	dinner(t_table *table, t_philo *philo);
+void	leave_fork(t_table *table, t_philo *philo);
 
 
 #endif

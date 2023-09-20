@@ -11,26 +11,24 @@
 /* ************************************************************************** */
 
 #include "philo.h"
-
+/*
 static int	find_post(int id, int max)
 {
 	if (id == 0)
 		return (max - 1);
 	return (id - 1);
-}
+}*/
 
-void	get_fork(t_table *table, t_philo *philo, int post)
+void	get_fork(t_table *table, t_philo *philo)
 {
-	(void)post;
 	pthread_mutex_lock(&table->mutex[philo->fork_r]);
 	status_time(philo, table, TEXT_FORK, 0);
 	pthread_mutex_lock(&table->mutex[philo->fork_l]);
 	status_time(philo, table, TEXT_FORK, 0);
 }
 
-void	dinner(t_table *table, t_philo *philo, int post)
+void	dinner(t_table *table, t_philo *philo)
 {
-	(void) post;
 	status_time(philo, table, TEXT_DINNER, table->info->t_eat);
 	gettimeofday(&philo->t_last_eat, NULL);
 	philo->n_eat++;
@@ -42,9 +40,8 @@ void	dinner(t_table *table, t_philo *philo, int post)
 	}
 }
 
-void	leave_fork(t_table *table, t_philo *philo, int post)
+void	leave_fork(t_table *table, t_philo *philo)
 {
-	post = find_post(philo->id_philo, table->info->n_philo);
 	pthread_mutex_unlock(&table->mutex[philo->fork_r]);
 	pthread_mutex_unlock(&table->mutex[philo->fork_l]);
 	status_time(philo, table, TEXT_SLEEP, table->info->t_sleep);

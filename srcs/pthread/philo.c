@@ -99,9 +99,9 @@ void	*thread_philo(void *data)
 		usleep(1000);
 	while (table->end == 0)
 	{
-		get_fork(table, philo, post);
-		dinner(table, philo, post);
-		leave_fork(table, philo, post);
+		get_fork(table, philo);
+		dinner(table, philo);
+		leave_fork(table, philo);
 	}
 	//table->end = 1;
 	//printf("\n \t FIN\n");

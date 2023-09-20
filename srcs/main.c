@@ -59,9 +59,9 @@ static int	created_philo(t_table *table)
 int	main(int argc, char **argv)
 {
 	t_table		table;
-	int			count;
+	//int			count;
 
-	count = 0;
+	//count = 0;
 	//printf("%d\n", argc);
 	table.info = check_input(argv, argc);
 	if (table.info == NULL)
