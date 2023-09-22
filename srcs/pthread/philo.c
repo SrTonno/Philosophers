@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 13:33:04 by tvillare          #+#    #+#             */
-/*   Updated: 2023/09/22 13:04:12 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/09/22 16:35:35 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,17 +91,19 @@ void	*thread_philo(void *data)
 	philo = &table->stats[id];
 	philo->id_philo = id;
 	philo->n_eat = 0;
+	philo->fin = 0;
 	post = find_post(philo->id_philo, table->info->n_philo);
 	//gettimeofday(&table->stats[id].t_last_eat, NULL);
 	//printf("Philo %d-%d\n", philo->id_philo, post);
 	grt_fork(philo, table);
-	printf("Philo %d-%d  //  %d-%d\n", philo->fork_r, philo->fork_l, philo->id_philo, post);
+	//printf("Philo %d-%d  //  %d-%d\n", philo->fork_r, philo->fork_l, philo->id_philo, post);
 	if ((philo->id_philo) % 2 == 0)
 		usleep(1000);
-	while (table->end == 0)
+	while (philo->fin == 0)
 	{
 		get_fork(table, philo);
 		dinner(table, philo);
+		//if (philo->fin == 0)
 		leave_fork(table, philo);
 	}
 	//table->end = 1;

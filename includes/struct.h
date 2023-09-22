@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 12:32:34 by tvillare          #+#    #+#             */
-/*   Updated: 2023/09/22 12:42:42 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/09/22 16:09:52 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct	s_philo
 	int				n_eat;
 	size_t			t_last_eat;
 	size_t			t_end;
+	int				fin;
 	int				fork_r;
 	int				fork_l;
 }	t_philo;

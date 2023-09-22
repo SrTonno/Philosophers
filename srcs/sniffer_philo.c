@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:06:51 by tvillare          #+#    #+#             */
-/*   Updated: 2023/09/22 13:08:50 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/09/22 16:35:09 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int check_time_die(t_table *table)
 	//gettimeofday(&t_stop, NULL);
 	while (table->id_tmp > ++count)
 	{
-		if (get_time() - table->stats[count].t_last_eat > (size_t)table->info->t_die)
+		if (table->stats[count].fin == 0 && get_time() - table->stats[count].t_last_eat > (size_t)table->info->t_die)
 		{
 			status_time(&table->stats[count], table, "died", 0);
 			printf("DIE %06d, die in %d, philo %d, count %d, eat %d\n", get_time() - table->stats[count].t_last_eat > (size_t)table->info->t_die , table->info->t_die, table->stats[count].id_philo + 1, count + 1, table->stats[count].n_eat);
@@ -52,7 +52,7 @@ void	*sniffer_philo(void *data)
 	usleep(5000);
 	while (1)
 	{
-		//printf("Ronda++");
+		//printf("eat -> %d max ->%d \n", table->end, table->info->max_eat);
 		if (check_time_die(table) != 1)
 		{
 			pthread_mutex_lock(&table->prot_end);
@@ -60,13 +60,15 @@ void	*sniffer_philo(void *data)
 			pthread_mutex_unlock(&table->prot_end);
 			break ;
 		}
-		if (table->end == 1)
+		if (table->info->max_eat != 0 && table->end == table->info->n_philo)
 		{
 			//printf("\nFIN de commer\n");
+			table->end = 3;
 			break ;
 		}
 		usleep(4000);
 	}
+	//if (table->end == 2)
 	destroy_philo(table);
 	return (NULL);
 }
