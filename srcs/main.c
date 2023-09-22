@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 15:45:00 by tvillare          #+#    #+#             */
-/*   Updated: 2023/09/22 16:35:00 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/09/22 16:46:47 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,7 @@
 4 310 200 100 mueren
 */
 
-/* ERRORES
-muerte extraña en tiempos grandes (error de comparacion de tiempo de tiempo)
-*/
+
 
 static int	created_philo(t_table *table)
 {
