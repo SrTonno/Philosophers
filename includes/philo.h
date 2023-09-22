@@ -46,4 +46,6 @@ void	dinner(t_table *table, t_philo *philo);
 void	leave_fork(t_table *table, t_philo *philo);
 
 
+
+size_t	get_time(void);
 #endif

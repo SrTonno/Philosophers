@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 18:49:02 by tvillare          #+#    #+#             */
-/*   Updated: 2023/07/09 16:14:44 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/09/22 13:09:28 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ void	get_fork(t_table *table, t_philo *philo)
 void	dinner(t_table *table, t_philo *philo)
 {
 	status_time(philo, table, TEXT_DINNER, table->info->t_eat);
-	gettimeofday(&philo->t_last_eat, NULL);
+	//gettimeofday(&philo->t_last_eat, NULL);
+	philo->t_last_eat = get_time();
 	philo->n_eat++;
 	if (table->info->max_eat != 0 && table->info->max_eat == philo->n_eat)
 	{

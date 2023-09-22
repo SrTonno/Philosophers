@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 12:32:34 by tvillare          #+#    #+#             */
-/*   Updated: 2023/07/08 19:31:53 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/09/22 12:42:42 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ typedef struct	s_philo
 {
 	int				id_philo;
 	int				n_eat;
-	struct timeval	t_last_eat;
-	struct timeval	t_end;
+	size_t			t_last_eat;
+	size_t			t_end;
 	int				fork_r;
 	int				fork_l;
 }	t_philo;
@@ -42,7 +42,7 @@ typedef struct	s_table
 	int				id_tmp;
 	pthread_mutex_t	prot_end;
 	int				end;
-	struct timeval	t_start;
+	size_t			t_start;
 	pthread_t		*philo;
 	pthread_t		sniffer;
 	t_info			*info;

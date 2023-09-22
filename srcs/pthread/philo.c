@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 13:33:04 by tvillare          #+#    #+#             */
-/*   Updated: 2023/09/19 18:27:40 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/09/22 13:04:12 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,10 @@ void	status_time(t_philo *philo, t_table *table, char *status, size_t time)
 	{
 		//milisleep(time, table);
 		tempo(table, time);
-		gettimeofday(&philo->t_end, NULL);
+		philo->t_end = get_time();
 		if (table->end == 0)
-			printf("%06ld %d %s\n", time_to_milis(table->t_start, philo->t_end), philo->id_philo + 1, status);
+			printf("%06ld %d %s\n", (philo->t_end - table->t_start), philo->id_philo + 1, status);
+			//printf("%06ld %d %s\n", time_to_milis(table->t_start, philo->t_end), philo->id_philo + 1, status);
 	}
 }
 
