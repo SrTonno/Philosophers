@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 13:33:04 by tvillare          #+#    #+#             */
-/*   Updated: 2023/09/22 16:35:35 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/09/23 18:52:28 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,6 @@ void grt_fork(t_philo *philo, t_table *table)
 
 }
 
-void	ft_usleep(int time)
-{
-	int	i;
-
-	i = 0;
-	while (i++ < 1000)
-	{
-		usleep(time);
-	}
-
-
-}
 /* get current time */
 size_t	get_time(void)
 {
@@ -52,6 +40,7 @@ size_t	get_time(void)
 	gettimeofday(&t, NULL);
 	return ((t.tv_sec * 1000) + (t.tv_usec / 1000));
 }
+
 void	tempo(t_table *table, size_t t_slp)
 {
 	size_t	t;
@@ -71,9 +60,9 @@ void	status_time(t_philo *philo, t_table *table, char *status, size_t time)
 	{
 		//milisleep(time, table);
 		tempo(table, time);
-		philo->t_end = get_time();
+		//philo->t_end = get_time();
 		if (table->end == 0)
-			printf("%06ld %d %s\n", (philo->t_end - table->t_start), philo->id_philo + 1, status);
+			printf("%06ld %d %s\n", (get_time() - table->t_start), philo->id_philo + 1, status);
 			//printf("%06ld %d %s\n", time_to_milis(table->t_start, philo->t_end), philo->id_philo + 1, status);
 	}
 }
@@ -93,10 +82,7 @@ void	*thread_philo(void *data)
 	philo->n_eat = 0;
 	philo->fin = 0;
 	post = find_post(philo->id_philo, table->info->n_philo);
-	//gettimeofday(&table->stats[id].t_last_eat, NULL);
-	//printf("Philo %d-%d\n", philo->id_philo, post);
 	grt_fork(philo, table);
-	//printf("Philo %d-%d  //  %d-%d\n", philo->fork_r, philo->fork_l, philo->id_philo, post);
 	if ((philo->id_philo) % 2 == 0)
 		usleep(1000);
 	while (philo->fin == 0)
@@ -106,7 +92,6 @@ void	*thread_philo(void *data)
 		//if (philo->fin == 0)
 		leave_fork(table, philo);
 	}
-	//table->end = 1;
-	//printf("\n \t FIN\n");
+	printf("FIN philo %d", id);
 	return (NULL);
 }

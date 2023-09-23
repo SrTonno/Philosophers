@@ -28,6 +28,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 CFLAGS += -pthread
 FSANITIZE = -fsanitize=address -g
+THREAD =  -fsanitize=thread -g
 
 RM = rm -rf
 ################################################################################
@@ -39,14 +40,14 @@ RM = rm -rf
 all: ${NAME}
 
 ${NAME}: ${OBJS}
-	@${CC}  ${CFLAGS} ${OBJS} -o ${NAME}
+	@${CC}  ${CFLAGS} ${THREAD} ${OBJS} -o ${NAME}
 	@printf "\n${God}${BIGreen}[Create] ${BIBlue}Philo${NoColor}${NoColor}${God}\n"
 
 ${LFT_NAME}:
 	@make -s -C ${LIB_DIR}
 
 %.o: %.c
-	@${CC} -c ${CFLAGS} $^ -o $@ ${INC}
+	@${CC} -c ${CFLAGS}  $^ -o $@ ${INC}
 	@printf "${BIGreen}[Compiled]${BIBlue} $^ ${NoColor}to ${BIPurple}$@ ${NoColor}                       \r"
 
 re: fclean all

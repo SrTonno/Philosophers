@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:06:51 by tvillare          #+#    #+#             */
-/*   Updated: 2023/09/22 16:35:09 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/09/23 18:57:04 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 static int check_time_die(t_table *table)
 {
-	int				count;
+	int		count;
+	int		id;
+	size_t	time;
 	//struct timeval	t_stop;
 
 	(void)table;
@@ -24,9 +26,13 @@ static int check_time_die(t_table *table)
 	{
 		if (table->stats[count].fin == 0 && get_time() - table->stats[count].t_last_eat > (size_t)table->info->t_die)
 		{
-			status_time(&table->stats[count], table, "died", 0);
-			printf("DIE %06d, die in %d, philo %d, count %d, eat %d\n", get_time() - table->stats[count].t_last_eat > (size_t)table->info->t_die , table->info->t_die, table->stats[count].id_philo + 1, count + 1, table->stats[count].n_eat);
-			//printf("\ntime eat %d, sleep %d\n", table->info->t_eat, table->info->t_sleep);
+			id = table->stats[count].id_philo + 1;
+			time = get_time() - table->t_start;
+			pthread_mutex_lock(&table->prot_end);
+			table->end = 2;
+			pthread_mutex_unlock(&table->prot_end);
+			usleep (1000);
+			printf("%06ld %d %s\n", time, id, "died");
 			return (0);
 		}
 	}
@@ -46,6 +52,7 @@ static void destroy_philo(t_table *table)
 void	*sniffer_philo(void *data)
 {
 	t_table	*table;
+	int	i;
 
 	table = (t_table *)data;
 	(void)table;
@@ -55,9 +62,6 @@ void	*sniffer_philo(void *data)
 		//printf("eat -> %d max ->%d \n", table->end, table->info->max_eat);
 		if (check_time_die(table) != 1)
 		{
-			pthread_mutex_lock(&table->prot_end);
-			table->end = 2;
-			pthread_mutex_unlock(&table->prot_end);
 			break ;
 		}
 		if (table->info->max_eat != 0 && table->end == table->info->n_philo)
@@ -68,7 +72,10 @@ void	*sniffer_philo(void *data)
 		}
 		usleep(4000);
 	}
-	//if (table->end == 2)
+	i = -1;
+	while (++i < table->info->n_philo - 1)
+		pthread_join(table->philo[i], NULL);
+	//if (table->end == 20)
 	destroy_philo(table);
 	return (NULL);
 }
