@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 18:49:02 by tvillare          #+#    #+#             */
-/*   Updated: 2023/09/22 16:24:05 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/09/23 19:30:57 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	dinner(t_table *table, t_philo *philo)
 	philo->n_eat++;
 	if (table->info->max_eat != 0 && table->info->max_eat == philo->n_eat)
 	{
+		printf("ha comido todo %d\n", philo->id_philo);
 		pthread_mutex_lock(&table->prot_end);
 		table->end++;
 		philo->fin = 1;
@@ -46,7 +47,7 @@ void	leave_fork(t_table *table, t_philo *philo)
 {
 	pthread_mutex_unlock(&table->mutex[philo->fork_r]);
 	pthread_mutex_unlock(&table->mutex[philo->fork_l]);
-	if (philo->fin == 1)
+	if (philo->fin != 0)
 		return ;
 	status_time(philo, table, TEXT_SLEEP, table->info->t_sleep);
 	status_time(philo, table, TEXT_THINK, 0);

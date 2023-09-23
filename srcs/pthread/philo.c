@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 13:33:04 by tvillare          #+#    #+#             */
-/*   Updated: 2023/09/23 18:52:28 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/09/23 19:37:41 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,13 +85,12 @@ void	*thread_philo(void *data)
 	grt_fork(philo, table);
 	if ((philo->id_philo) % 2 == 0)
 		usleep(1000);
-	while (philo->fin == 0)
+	while (table->end == 0 || philo->fin == 0)
 	{
 		get_fork(table, philo);
 		dinner(table, philo);
 		//if (philo->fin == 0)
 		leave_fork(table, philo);
 	}
-	printf("FIN philo %d", id);
 	return (NULL);
 }
