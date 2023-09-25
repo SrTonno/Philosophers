@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 11:17:27 by tvillare          #+#    #+#             */
-/*   Updated: 2023/02/27 20:37:08 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/09/25 18:01:19 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,19 @@
 
 long	time_to_milis(struct timeval t_start, struct timeval t_end)
 {
-	long milis;
+	long	milis;
 
 	milis = (((t_end.tv_sec - t_start.tv_sec) * 1000) + \
 		((t_end.tv_usec - t_start.tv_usec) / 1000));
 	return (milis);
 }
 
-void	milisleep(int max, t_table *table)
+int	ft_isdigit(int c)
 {
-	int	i;
-
-	i = 0;
-	max = max * 2;
-	while (max > i++ && table->end == 0)
-		usleep(500);
-}
-
-size_t	ft_strlen(const char *s)
-{
-	size_t	i;
-
-	i = 0;
-	while (s[i] != '\0')
-		i++;
-	return (i);
+	if (48 <= c && 57 >= c)
+		return (1);
+	else
+		return (0);
 }
 
 void	*ft_calloc(size_t count, size_t size)

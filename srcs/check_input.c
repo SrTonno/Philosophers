@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:45:36 by tvillare          #+#    #+#             */
-/*   Updated: 2023/02/22 17:21:36 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/09/25 18:06:32 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ static int	check_number(char *str)
 			||str[index] == '+' || str[index] == '-')
 			return (-1);
 	}
-	return(ft_atoi(str));
+	return (ft_atoi(str));
 }
 
 static t_info	*save_info(char **data, int count)
 {
-	t_info *info;
+	t_info	*info;
 
 	info = malloc(1 * sizeof(t_info));
 	info->n_philo = check_number(data[1]);
@@ -44,7 +44,7 @@ static t_info	*save_info(char **data, int count)
 
 t_info	*check_input(char **data, int count)
 {
-	t_info *info;
+	t_info	*info;
 
 	if (count != 5 && count != 6)
 	{
@@ -59,5 +59,5 @@ t_info	*check_input(char **data, int count)
 		info = NULL;
 		printf("Error:\n Numoero erroneo");
 	}
-	return(info);
+	return (info);
 }

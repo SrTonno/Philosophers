@@ -6,7 +6,7 @@ SRCSDIR = ./srcs/
 SRCSCFILES = main.c  sniffer_philo.c check_input.c
 
 UTILDIR = ${addprefix ${SRCSDIR}, utils/}
-UTILFILES = ft_atoi.c utils.c ft_isdigit.c
+UTILFILES = ft_atoi.c utils.c
 
 PTHREADDIR = ${addprefix ${SRCSDIR}, pthread/}
 PTHREADFILES = actions.c philo.c
@@ -63,6 +63,7 @@ fclean: clean
 ###############################################################################
 #                                              TEST                           #
 ###############################################################################
+#MANDATORI
 test1: all
 	./philo 1 800 200 200 # mueren
 
@@ -77,6 +78,8 @@ test4: all
 
 test5: all
 	./philo 4 310 200 100 #mueren
+
+#EXTRA
 test_hard: all
 	./philo 100 180 60 60 #extremo viven
 ################################################################################

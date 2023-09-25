@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 15:45:00 by tvillare          #+#    #+#             */
-/*   Updated: 2023/09/25 13:44:32 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/09/25 18:05:46 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	find_post(int id, int max)
 	return (id - 1);
 }
 
-void set_fork(t_philo *philo, t_table *table)
+void	set_fork(t_philo *philo, t_table *table)
 {
 	if (philo->id_philo == 0)
 	{
@@ -34,8 +34,7 @@ void set_fork(t_philo *philo, t_table *table)
 		return ;
 	}
 	philo->fork_r = philo->id_philo;
-	philo->fork_l = find_post(philo->id_philo, table->info->n_philo);;
-
+	philo->fork_l = find_post(philo->id_philo, table->info->n_philo);
 }
 
 void	set_info_philo(t_philo *philo, t_table *table, int id)
@@ -51,47 +50,34 @@ void	set_info_philo(t_philo *philo, t_table *table, int id)
 static int	created_philo(t_table *table)
 {
 	int	count;
-	int max;
+	int	max;
 
 	max = table->info->n_philo;
 	count = -1;
+	table->t_start = get_time();
 	while (max > ++count)
 	{
 		pthread_mutex_init(&table->mutex[count], NULL);
-		//gettimeofday(&table->stats[count].t_last_eat, NULL);
-		//table->stats[count].t_last_eat = get_time();
 		set_info_philo(&table->stats[count], table, count);
 	}
 	count = -1;
-	printf("Holi\n");
 	while (max > ++count)
 	{
-		if ((pthread_create(&table->philo[count], NULL, thread_philo, &table->stats[count]) != 0))
+		if ((pthread_create(&table->philo[count], NULL, \
+			thread_philo, &table->stats[count]) != 0))
 		{
 			printf("Error creating the thread. Code ");
 			return (1);
 		}
-		//usleep(10);
-		//table->id_tmp++;
 	}
 	sniffer_philo(table);
-
-	count = 0;
-	//while (max > count)
-		//pthread_join(table->philo[count++], NULL);
-	//while (table->end == 0)
-		//usleep(10);
-	//pthread_detach(table->sniffer);
 	return (0);
 }
 
 int	main(int argc, char **argv)
 {
 	t_table		table;
-	//int			count;
 
-	//count = 0;
-	//printf("%d\n", argc);
 	table.info = check_input(argv, argc);
 	if (table.info == NULL)
 		return (0);
@@ -100,7 +86,6 @@ int	main(int argc, char **argv)
 	table.mutex = ft_calloc(table.info->n_philo + 1, sizeof(pthread_mutex_t));
 	table.stats = ft_calloc(table.info->n_philo + 1, sizeof(t_philo));
 	pthread_mutex_init(&table.prot_end, NULL);
-	table.t_start = get_time();
 	if (created_philo(&table) != 0)
 		return (1);
 	return (0);

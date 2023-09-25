@@ -6,18 +6,17 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 12:32:34 by tvillare          #+#    #+#             */
-/*   Updated: 2023/09/25 13:36:31 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/09/25 18:07:36 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #ifndef STRUCT_H
 # define STRUCT_H
-#include "philo.h"
+# include "philo.h"
 
 //https://www.delftstack.com/es/howto/c/gettimeofday-in-c/
 
-typedef struct	s_philo
+typedef struct s_philo
 {
 	int				id_philo;
 	int				n_eat;
@@ -29,7 +28,7 @@ typedef struct	s_philo
 	struct s_table	*table;
 }	t_philo;
 
-typedef struct	s_info
+typedef struct s_info
 {
 	int	n_philo;
 	int	t_die;
@@ -38,12 +37,12 @@ typedef struct	s_info
 	int	max_eat;
 }	t_info;
 
-typedef struct	s_table
+typedef struct s_table
 {
 	pthread_mutex_t	*mutex;
-	//int				id_tmp;
 	pthread_mutex_t	prot_end;
 	int				end;
+	int				philo_eat;
 	size_t			t_start;
 	pthread_t		*philo;
 	pthread_t		sniffer;
