@@ -28,11 +28,11 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 CFLAGS += -pthread
 FSANITIZE = -fsanitize=address -g
-THREAD =  -fsanitize=thread -g
+#THREAD =  -fsanitize=thread -g -lpthread
 
 RM = rm -rf
 ################################################################################
-.PHONY: all re fclean clean test1 test2 test3 test4 test5
+.PHONY: all re fclean clean test1 test2 test3 test4 test5 test_hard
 ###############################################################################
 #                                              OPTIONS                        #
 ###############################################################################
@@ -77,4 +77,6 @@ test4: all
 
 test5: all
 	./philo 4 310 200 100 #mueren
+test_hard: all
+	./philo 100 180 60 60 #extremo viven
 ################################################################################

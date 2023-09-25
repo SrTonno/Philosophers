@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 12:32:34 by tvillare          #+#    #+#             */
-/*   Updated: 2023/09/22 16:09:52 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/09/25 13:36:31 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct	s_philo
 	int				fin;
 	int				fork_r;
 	int				fork_l;
+	struct s_table	*table;
 }	t_philo;
 
 typedef struct	s_info
@@ -40,7 +41,7 @@ typedef struct	s_info
 typedef struct	s_table
 {
 	pthread_mutex_t	*mutex;
-	int				id_tmp;
+	//int				id_tmp;
 	pthread_mutex_t	prot_end;
 	int				end;
 	size_t			t_start;
