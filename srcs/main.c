@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 15:45:00 by tvillare          #+#    #+#             */
-/*   Updated: 2023/09/25 18:05:46 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/09/25 19:25:11 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 4 410 200 200 viven
 4 310 200 100 mueren
 */
+//faltaa liberar cosas y proteger
 static int	find_post(int id, int max)
 {
 	if (id == 0)

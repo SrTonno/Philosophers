@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:06:51 by tvillare          #+#    #+#             */
-/*   Updated: 2023/09/25 18:04:10 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/09/25 19:32:00 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,12 @@ static int	check_time_die(t_table *table)
 		if (table->stats[count].fin == 0 && get_time() - \
 			table->stats[count].t_last_eat > (size_t)table->info->t_die)
 		{
-			id = table->stats[count].id_philo + 1;
-			time = get_time() - table->t_start;
 			pthread_mutex_lock(&table->prot_end);
 			table->end = 2;
 			pthread_mutex_unlock(&table->prot_end);
+			usleep(200);
+			id = table->stats[count].id_philo + 1;
+			time = get_time() - table->t_start;
 			printf("%06ld %d %s\n", time, id, "died");
 			return (0);
 		}
@@ -42,8 +43,14 @@ static void	destroy_philo(t_table *table)
 
 	index = 0;
 	while (table->info->n_philo > index)
+	{
+		pthread_mutex_destroy(&table->mutex[index]);
 		pthread_detach(table->philo[index++]);
-	free (table->philo);
+	}
+	pthread_mutex_destroy(&table->prot_end);
+	free(table->philo);
+	free(table->mutex);
+	free(table->stats);
 }
 
 void	*sniffer_philo(void *data)
