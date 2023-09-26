@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 18:49:02 by tvillare          #+#    #+#             */
-/*   Updated: 2023/09/25 18:01:26 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/09/26 15:59:35 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ void	dinner(t_table *table, t_philo *philo)
 	status_time(philo, table, TEXT_DINNER, table->info->t_eat);
 	philo->t_last_eat = get_time();
 	philo->n_eat++;
-	if (table->info->max_eat != 0 && table->info->max_eat == philo->n_eat)
+	if (table->info->has_max_eat == TRUE && \
+		table->info->max_eat == philo->n_eat)
 	{
 		pthread_mutex_lock(&table->prot_end);
 		table->philo_eat++;

@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 13:33:04 by tvillare          #+#    #+#             */
-/*   Updated: 2023/09/25 18:02:05 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/09/26 16:02:12 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,7 @@ void	status_time(t_philo *philo, t_table *table, char *status, size_t time)
 {
 	tempo(table, time);
 	if (table->end == 0)
-		printf("%06ld %d %s\n", (get_time() - table->t_start), \
-			philo->id_philo + 1, status);
+		mutex_print(status, philo, table, FALSE);
 }
 
 void	*thread_philo(void *data)

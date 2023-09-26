@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 15:45:00 by tvillare          #+#    #+#             */
-/*   Updated: 2023/09/25 19:25:11 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/09/26 16:00:18 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 4 410 200 200 viven
 4 310 200 100 mueren
 */
-//faltaa liberar cosas y proteger
+
 static int	find_post(int id, int max)
 {
 	if (id == 0)
@@ -45,7 +45,7 @@ void	set_info_philo(t_philo *philo, t_table *table, int id)
 	philo->n_eat = 0;
 	philo->fin = 0;
 	philo->table = table;
-	philo->t_last_eat = get_time();
+	philo->t_last_eat = table->t_start;
 }
 
 static int	created_philo(t_table *table)
@@ -86,7 +86,10 @@ int	main(int argc, char **argv)
 	table.philo = ft_calloc(table.info->n_philo + 1, sizeof(pthread_t));
 	table.mutex = ft_calloc(table.info->n_philo + 1, sizeof(pthread_mutex_t));
 	table.stats = ft_calloc(table.info->n_philo + 1, sizeof(t_philo));
+	if (table.stats == NULL || table.philo == NULL || table.stats == NULL)
+		return (0);
 	pthread_mutex_init(&table.prot_end, NULL);
+	pthread_mutex_init(&table.prot_print, NULL);
 	if (created_philo(&table) != 0)
 		return (1);
 	return (0);

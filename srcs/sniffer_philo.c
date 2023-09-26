@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:06:51 by tvillare          #+#    #+#             */
-/*   Updated: 2023/09/25 19:32:00 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/09/26 16:04:18 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 static int	check_time_die(t_table *table)
 {
 	int		count;
-	int		id;
-	size_t	time;
 
 	count = -1;
 	while (table->info->n_philo > ++count)
@@ -28,9 +26,7 @@ static int	check_time_die(t_table *table)
 			table->end = 2;
 			pthread_mutex_unlock(&table->prot_end);
 			usleep(200);
-			id = table->stats[count].id_philo + 1;
-			time = get_time() - table->t_start;
-			printf("%06ld %d %s\n", time, id, "died");
+			mutex_print(TEXT_DIED, &table->stats[count], table, TRUE);
 			return (0);
 		}
 	}
@@ -48,6 +44,7 @@ static void	destroy_philo(t_table *table)
 		pthread_detach(table->philo[index++]);
 	}
 	pthread_mutex_destroy(&table->prot_end);
+	pthread_mutex_destroy(&table->prot_print);
 	free(table->philo);
 	free(table->mutex);
 	free(table->stats);
@@ -59,12 +56,11 @@ void	*sniffer_philo(void *data)
 	int		i;
 
 	table = (t_table *)data;
-	(void)table;
 	while (1)
 	{
 		if (check_time_die(table) != 1)
 			break ;
-		if (table->info->max_eat > 0 && table->philo_eat == \
+		if (table->info->has_max_eat == TRUE && table->philo_eat == \
 			table->info->n_philo)
 		{
 			table->end = 3;

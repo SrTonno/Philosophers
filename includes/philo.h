@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 18:08:36 by tvillare          #+#    #+#             */
-/*   Updated: 2023/09/25 18:08:40 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/09/26 15:58:06 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,13 @@
 # define TEXT_DINNER "is eating"
 # define TEXT_SLEEP "is sleeping"
 # define TEXT_THINK "is thinking"
+# define TEXT_DIED "is died"
+# define ERR_NUMBER "ERROR:\n Invalid number format. Please try again."
+# define ERR_PARAM "ERROR: Function requires 5 or 6 parameters only."
+# define PROTO_FUNC "./philo <die> <eat> <sleep> [<times philosopher eats>]"
+# define NOT_EAT 0
+# define TRUE 1
+# define FALSE 0
 
 ///Utils
 int		ft_atoi(const char *str);
@@ -46,4 +53,6 @@ void	dinner(t_table *table, t_philo *philo);
 void	leave_fork(t_table *table, t_philo *philo);
 
 size_t	get_time(void);
+void	mutex_print(char *status, t_philo *philo, t_table *table, int is_died);
+
 #endif
