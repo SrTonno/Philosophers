@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 13:33:04 by tvillare          #+#    #+#             */
-/*   Updated: 2023/09/26 16:02:12 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/09/28 11:04:48 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	*thread_philo(void *data)
 	table = philo->table;
 	if ((philo->id_philo) % 2 != 0)
 		tempo(table, 2);
-	while (table->end == 0 && philo->fin == 0)
+	while (table->end == 0)
 	{
 		get_fork(table, philo);
 		if (table->info->n_philo == 1)
