@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 15:45:00 by tvillare          #+#    #+#             */
-/*   Updated: 2023/09/26 16:00:18 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/10/01 16:53:46 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ static int	created_philo(t_table *table)
 	while (max > ++count)
 	{
 		pthread_mutex_init(&table->mutex[count], NULL);
+		table->fork[count] = 0;
 		set_info_philo(&table->stats[count], table, count);
 	}
 	count = -1;
@@ -86,7 +87,9 @@ int	main(int argc, char **argv)
 	table.philo = ft_calloc(table.info->n_philo + 1, sizeof(pthread_t));
 	table.mutex = ft_calloc(table.info->n_philo + 1, sizeof(pthread_mutex_t));
 	table.stats = ft_calloc(table.info->n_philo + 1, sizeof(t_philo));
-	if (table.stats == NULL || table.philo == NULL || table.stats == NULL)
+	table.fork = ft_calloc(table.info->n_philo + 1, sizeof(int));
+	if (table.stats == NULL || table.philo == NULL || table.stats == NULL
+		|| table.fork == NULL)
 		return (0);
 	pthread_mutex_init(&table.prot_end, NULL);
 	pthread_mutex_init(&table.prot_print, NULL);

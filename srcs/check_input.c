@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:45:36 by tvillare          #+#    #+#             */
-/*   Updated: 2023/09/26 19:13:14 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/10/01 19:36:38 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@ static int	check_number(char *str)
 	int	index;
 
 	index = -1;
+	if (str[0] == '+')
+		index++;
 	while (str[++index] != '\0')
 	{
-		if ((str[index] < '0' || str[index] > '9')
-			&& (str[index] == '+' && index > 0))
+		if (str[index] < '0' || str[index] > '9')
 			return (-1);
 	}
 	return (ft_atoi(str));

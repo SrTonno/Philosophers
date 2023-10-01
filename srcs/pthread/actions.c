@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 18:49:02 by tvillare          #+#    #+#             */
-/*   Updated: 2023/09/28 12:30:58 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/10/01 16:53:52 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,16 @@
 void	get_fork(t_table *table, t_philo *philo)
 {
 	pthread_mutex_lock(&table->mutex[philo->fork_r]);
+	table->fork[philo->fork_r] = 1;
 	status_time(philo, table, TEXT_FORK, 0);
 	if (table->info->n_philo == 1)
 	{
+		table->fork[philo->fork_r] = 0;
 		pthread_mutex_unlock(&table->mutex[philo->fork_r]);
 		return ;
 	}
 	pthread_mutex_lock(&table->mutex[philo->fork_l]);
+	table->fork[philo->fork_r] = 0;
 	status_time(philo, table, TEXT_FORK, 0);
 }
 
@@ -43,7 +46,9 @@ void	dinner(t_table *table, t_philo *philo)
 
 void	leave_fork(t_table *table, t_philo *philo)
 {
+	table->fork[philo->fork_r] = 0;
 	pthread_mutex_unlock(&table->mutex[philo->fork_r]);
+	table->fork[philo->fork_l] = 0;
 	pthread_mutex_unlock(&table->mutex[philo->fork_l]);
 	status_time(philo, table, TEXT_SLEEP, table->info->t_sleep);
 	status_time(philo, table, TEXT_THINK, 0);

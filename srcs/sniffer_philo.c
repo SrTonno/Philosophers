@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:06:51 by tvillare          #+#    #+#             */
-/*   Updated: 2023/09/26 16:04:18 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/09/29 12:43:43 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	check_time_die(t_table *table)
 			pthread_mutex_lock(&table->prot_end);
 			table->end = 2;
 			pthread_mutex_unlock(&table->prot_end);
-			usleep(200);
+			usleep(300);
 			mutex_print(TEXT_DIED, &table->stats[count], table, TRUE);
 			return (0);
 		}
@@ -46,6 +46,7 @@ static void	destroy_philo(t_table *table)
 	pthread_mutex_destroy(&table->prot_end);
 	pthread_mutex_destroy(&table->prot_print);
 	free(table->philo);
+	free(table->fork);
 	free(table->mutex);
 	free(table->stats);
 }
@@ -66,7 +67,7 @@ void	*sniffer_philo(void *data)
 			table->end = 3;
 			break ;
 		}
-		usleep(1000);
+		usleep(1500);
 	}
 	i = -1;
 	while (++i < table->info->n_philo)
