@@ -12,19 +12,36 @@
 
 #include "philo.h"
 
+
+void	take_fork(pthread_mutex_t *mutex, int *fork)
+{
+	while(1)
+		if (*fork == 0)
+			break ;
+	pthread_mutex_lock(mutex);
+	*fork = 1;
+	pthread_mutex_unlock(mutex);
+}
+
+void	release_fork(pthread_mutex_t *mutex, int *fork)
+{
+
+	pthread_mutex_lock(mutex);
+	*fork = 0;
+	pthread_mutex_unlock(mutex);
+}
 void	get_fork(t_table *table, t_philo *philo)
 {
-	pthread_mutex_lock(&table->mutex[philo->fork_r]);
-	table->fork[philo->fork_r] = 1;
+	take_fork(&table->mutex[philo->fork_r] , &table->fork[philo->fork_r]);
 	status_time(philo, table, TEXT_FORK, 0);
 	if (table->info->n_philo == 1)
 	{
-		table->fork[philo->fork_r] = 0;
-		pthread_mutex_unlock(&table->mutex[philo->fork_r]);
+		release_fork(&table->mutex[philo->fork_r], &table->fork[philo->fork_r]);
+		//table->fork[philo->fork_r] = 0;
+		//pthread_mutex_unlock(&table->mutex[philo->fork_r]);
 		return ;
 	}
-	pthread_mutex_lock(&table->mutex[philo->fork_l]);
-	table->fork[philo->fork_r] = 0;
+	take_fork(&table->mutex[philo->fork_l] , &table->fork[philo->fork_l]);
 	status_time(philo, table, TEXT_FORK, 0);
 }
 
@@ -46,10 +63,9 @@ void	dinner(t_table *table, t_philo *philo)
 
 void	leave_fork(t_table *table, t_philo *philo)
 {
-	table->fork[philo->fork_r] = 0;
-	pthread_mutex_unlock(&table->mutex[philo->fork_r]);
-	table->fork[philo->fork_l] = 0;
-	pthread_mutex_unlock(&table->mutex[philo->fork_l]);
+
+	release_fork(&table->mutex[philo->fork_r], &table->fork[philo->fork_r]);
+	release_fork(&table->mutex[philo->fork_l], &table->fork[philo->fork_l]);
 	status_time(philo, table, TEXT_SLEEP, table->info->t_sleep);
 	status_time(philo, table, TEXT_THINK, 0);
 }

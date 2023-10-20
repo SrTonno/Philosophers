@@ -41,6 +41,7 @@ void	set_fork(t_philo *philo, t_table *table)
 void	set_info_philo(t_philo *philo, t_table *table, int id)
 {
 	philo->id_philo = id;
+	table->fork[id] = 0;
 	set_fork(philo, table);
 	philo->n_eat = 0;
 	philo->fin = 0;
@@ -90,7 +91,12 @@ int	main(int argc, char **argv)
 	table.fork = ft_calloc(table.info->n_philo + 1, sizeof(int));
 	if (table.stats == NULL || table.philo == NULL || table.stats == NULL
 		|| table.fork == NULL)
-		return (0);
+	{
+		(free(table.philo), free(table.mutex));
+		(free(table.stats), free (table.fork));
+		return (1);
+	}
+	table.philo_eat = 0;
 	pthread_mutex_init(&table.prot_end, NULL);
 	pthread_mutex_init(&table.prot_print, NULL);
 	if (created_philo(&table) != 0)
