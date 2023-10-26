@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 18:49:02 by tvillare          #+#    #+#             */
-/*   Updated: 2023/10/01 16:53:52 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/10/26 12:13:51 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,8 @@
 
 void	take_fork(pthread_mutex_t *mutex, int *fork)
 {
-	while(1)
-		if (*fork == 0)
-			break ;
+	while(*fork == 1)
+		usleep(50);
 	pthread_mutex_lock(mutex);
 	*fork = 1;
 	pthread_mutex_unlock(mutex);
@@ -25,11 +24,12 @@ void	take_fork(pthread_mutex_t *mutex, int *fork)
 
 void	release_fork(pthread_mutex_t *mutex, int *fork)
 {
-
 	pthread_mutex_lock(mutex);
 	*fork = 0;
 	pthread_mutex_unlock(mutex);
 }
+
+
 void	get_fork(t_table *table, t_philo *philo)
 {
 	take_fork(&table->mutex[philo->fork_r] , &table->fork[philo->fork_r]);

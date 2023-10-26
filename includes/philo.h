@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 18:08:36 by tvillare          #+#    #+#             */
-/*   Updated: 2023/09/26 15:58:06 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/10/26 11:08:54 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,8 @@ void	leave_fork(t_table *table, t_philo *philo);
 
 size_t	get_time(void);
 void	mutex_print(char *status, t_philo *philo, t_table *table, int is_died);
+
+
+void	rutine_live(t_table *table, t_philo *philo);
 
 #endif
