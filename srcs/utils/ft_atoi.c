@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 17:04:06 by tvillare          #+#    #+#             */
-/*   Updated: 2023/02/10 19:03:46 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/10/27 16:31:36 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,10 @@ int	ft_atoi(const char *str)
 	if (str[i] < 48 || str[i] > 57)
 		return (0);
 	final = num_final(str, i, no_numero(str, i));
-	if (final > LONG_MAX && signo == 0)
+	if (final > INT_MAX && signo == 0)
 		return (-1);
-	else if (final > LONG_MAX && signo == 1)
-		return (0);
+	else if (final > INT_MAX && signo == 1)
+		return (-1);
 	if (signo == 1)
 		return (-final);
 	return (final);

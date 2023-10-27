@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:45:36 by tvillare          #+#    #+#             */
-/*   Updated: 2023/10/27 15:06:08 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/10/27 16:30:06 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ t_info	*check_input(char **data, int count)
 		return (NULL);
 	}
 	info = save_info(data, count);
+	if (info == NULL)
+		return (NULL);
 	if (info->n_philo <= 0 || info->t_die <= 0 || info->t_eat <= 0
 		|| info->t_sleep <= 0 || \
 		(info->max_eat <= 0 && info->has_max_eat == TRUE))

@@ -5,7 +5,7 @@ SRCSDIR = ./srcs/
 SRCSCFILES = main.c  sniffer_philo.c check_input.c
 
 UTILDIR = ${addprefix ${SRCSDIR}, utils/}
-UTILFILES = ft_atoi.c utils.c
+UTILFILES = ft_atoi.c utils.c utils2.c
 
 PTHREADDIR = ${addprefix ${SRCSDIR}, pthread/}
 PTHREADFILES = actions.c philo.c

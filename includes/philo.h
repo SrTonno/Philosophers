@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 18:08:36 by tvillare          #+#    #+#             */
-/*   Updated: 2023/10/26 12:40:58 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/10/27 17:35:36 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,9 @@ long	time_to_milis(struct timeval t_start, struct timeval t_end);
 void	*ft_calloc(size_t count, size_t size);
 void	milisleep(int max, t_table *table);
 void	status_time(t_philo *philo, t_table *table, char *status, size_t time);
+void	free_struct(t_table *table);
+int		find_post(int id, int max);
+void	set_info_philo(t_philo *philo, t_table *table, int id);
 ///Philo
 void	*thread_philo(void *data);
 void	*sniffer_philo(void *table);
