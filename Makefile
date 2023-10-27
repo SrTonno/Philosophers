@@ -1,5 +1,5 @@
 include colors.mk
-#https://rphlr.github.io/42-Evals/Rank03/Philosophers/
+
 ###############################################################################
 #                                              FILES                          #
 ###############################################################################
@@ -79,7 +79,6 @@ test4: all
 
 test5: all
 	./philo 4 310 200 100 #mueren
-
 #EXTRA
 test_hard: all
 	./philo 100 180 60 60 #extremo viven

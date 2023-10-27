@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 15:45:00 by tvillare          #+#    #+#             */
-/*   Updated: 2023/10/26 11:05:46 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/10/27 12:21:49 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,23 +26,12 @@ static int	find_post(int id, int max)
 	return (id - 1);
 }
 
-void	set_fork(t_philo *philo, t_table *table)
-{
-	if (philo->id_philo == 0)
-	{
-		philo->fork_r = find_post(philo->id_philo, table->info->n_philo);
-		philo->fork_l = 0;
-		return ;
-	}
-	philo->fork_r = philo->id_philo;
-	philo->fork_l = find_post(philo->id_philo, table->info->n_philo);
-}
-
 void	set_info_philo(t_philo *philo, t_table *table, int id)
 {
 	philo->id_philo = id;
 	table->fork[id] = 0;
-	set_fork(philo, table);
+	philo->fork_r = philo->id_philo;
+	philo->fork_l = find_post(philo->id_philo, table->info->n_philo);
 	philo->n_eat = 0;
 	philo->fin = 0;
 	philo->table = table;
