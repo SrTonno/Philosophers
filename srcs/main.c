@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 15:45:00 by tvillare          #+#    #+#             */
-/*   Updated: 2023/10/27 15:09:08 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/10/27 15:36:02 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	free_struct(t_table *table)
 	free(table->mutex);
 	free(table->stats);
 }
+
 static int	find_post(int id, int max)
 {
 	if (id == 0)
@@ -71,16 +72,14 @@ int	main(int argc, char **argv)
 {
 	t_table		table;
 
-	table.info = check_input(argv, argc);
-	if (table.info == NULL)
-		return (0);
 	table.end = 0;
+	table.info = check_input(argv, argc);
 	table.philo = ft_calloc(table.info->n_philo + 1, sizeof(pthread_t));
 	table.mutex = ft_calloc(table.info->n_philo + 1, sizeof(pthread_mutex_t));
 	table.stats = ft_calloc(table.info->n_philo + 1, sizeof(t_philo));
 	table.fork = ft_calloc(table.info->n_philo + 1, sizeof(int));
 	if (table.stats == NULL || table.philo == NULL || table.stats == NULL
-		|| table.fork == NULL)
+		|| table.fork == NULL || table.info == NULL)
 	{
 		free_struct(&table);
 		return (1);
@@ -90,6 +89,5 @@ int	main(int argc, char **argv)
 	pthread_mutex_init(&table.prot_print, NULL);
 	if (created_philo(&table) != 0)
 		return (free_struct(&table), 1);
-	system("leaks -q philo");
 	return (0);
 }
