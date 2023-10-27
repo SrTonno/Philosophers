@@ -6,19 +6,20 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 15:45:00 by tvillare          #+#    #+#             */
-/*   Updated: 2023/10/27 12:21:49 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/10/27 15:09:08 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-/*
-1 800 200 200 muere
-5 800 200 200 viven
-5 800 200 200 7 viven y cada uno come 7 veces
-4 410 200 200 viven
-4 310 200 100 mueren
-*/
 
+void	free_struct(t_table *table)
+{
+	free(table->philo);
+	free(table->info);
+	free(table->fork);
+	free(table->mutex);
+	free(table->stats);
+}
 static int	find_post(int id, int max)
 {
 	if (id == 0)
@@ -81,14 +82,14 @@ int	main(int argc, char **argv)
 	if (table.stats == NULL || table.philo == NULL || table.stats == NULL
 		|| table.fork == NULL)
 	{
-		(free(table.philo), free(table.mutex));
-		(free(table.stats), free (table.fork));
+		free_struct(&table);
 		return (1);
 	}
 	table.philo_eat = 0;
 	pthread_mutex_init(&table.prot_end, NULL);
 	pthread_mutex_init(&table.prot_print, NULL);
 	if (created_philo(&table) != 0)
-		return (1);
+		return (free_struct(&table), 1);
+	system("leaks -q philo");
 	return (0);
 }

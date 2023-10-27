@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:06:51 by tvillare          #+#    #+#             */
-/*   Updated: 2023/09/29 12:43:43 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/10/27 15:02:04 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ static void	destroy_philo(t_table *table)
 	pthread_mutex_destroy(&table->prot_end);
 	pthread_mutex_destroy(&table->prot_print);
 	free(table->philo);
+	free(table->info);
 	free(table->fork);
 	free(table->mutex);
 	free(table->stats);

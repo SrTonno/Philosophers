@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:45:36 by tvillare          #+#    #+#             */
-/*   Updated: 2023/10/01 19:36:38 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/10/27 15:06:08 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ static t_info	*save_info(char **data, int count)
 {
 	t_info	*info;
 
-	info = malloc(1 * sizeof(t_info));
+	info = ft_calloc(1, sizeof(t_info));
+	if (info == NULL)
+		return (NULL);
 	info->n_philo = check_number(data[1]);
 	info->t_die = check_number(data[2]);
 	info->t_eat = check_number(data[3]);
