@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:45:36 by tvillare          #+#    #+#             */
-/*   Updated: 2023/10/27 16:30:06 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/10/31 18:26:05 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,11 @@
 static int	check_number(char *str)
 {
 	int	index;
+	int	start;
+	int	i;
 
+	i = 0;
+	start = 0;
 	index = -1;
 	if (str[0] == '+')
 		index++;
@@ -23,7 +27,13 @@ static int	check_number(char *str)
 	{
 		if (str[index] < '0' || str[index] > '9')
 			return (-1);
+		if (str[index] != '0' && start == 0)
+			start = 1;
+		if (start == 1)
+			i++;
 	}
+	if (i > 10)
+		return (-1);
 	return (ft_atoi(str));
 }
 

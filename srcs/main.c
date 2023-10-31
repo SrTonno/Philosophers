@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 15:45:00 by tvillare          #+#    #+#             */
-/*   Updated: 2023/10/27 17:38:21 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/10/31 19:12:59 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	error_pthread(t_table *table, int max)
 	table->end = 4;
 	while (++i < max)
 		pthread_join(table->philo[i], NULL);
-	printf("Error\n\tcreating the thread");
+	printf("Error\n\tcreating the thread\n");
 	return (1);
 }
 
@@ -68,12 +68,12 @@ int	main(int argc, char **argv)
 		|| table.fork == NULL)
 	{
 		free_struct(&table);
-		return (0);
+		return (1);
 	}
 	table.philo_eat = 0;
 	pthread_mutex_init(&table.prot_end, NULL);
 	pthread_mutex_init(&table.prot_print, NULL);
-	if (created_philo(&table) != 0)
-		return (free_struct(&table), 1);
+	created_philo(&table);
+	destroy_philo(&table);
 	return (0);
 }

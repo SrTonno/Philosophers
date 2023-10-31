@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:06:51 by tvillare          #+#    #+#             */
-/*   Updated: 2023/10/27 15:02:04 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/10/31 17:57:18 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	check_time_die(t_table *table)
 	return (1);
 }
 
-static void	destroy_philo(t_table *table)
+void	destroy_philo(t_table *table)
 {
 	int	index;
 
@@ -68,11 +68,10 @@ void	*sniffer_philo(void *data)
 			table->end = 3;
 			break ;
 		}
-		usleep(1500);
+		usleep(1100);
 	}
 	i = -1;
 	while (++i < table->info->n_philo)
 		pthread_join(table->philo[i], NULL);
-	destroy_philo(table);
 	return (NULL);
 }

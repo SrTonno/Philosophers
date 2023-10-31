@@ -6,7 +6,7 @@
 /*   By: tvillare <tvillare@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 18:08:36 by tvillare          #+#    #+#             */
-/*   Updated: 2023/10/27 17:35:36 by tvillare         ###   ########.fr       */
+/*   Updated: 2023/10/30 15:42:37 by tvillare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define TEXT_DIED "is died"
 # define ERR_NUMBER "ERROR:\n Invalid number format. Please try again."
 # define ERR_PARAM "ERROR: Function requires 5 or 6 parameters only."
-# define PROTO_FUNC "./philo <die> <eat> <sleep> [<times philosopher eats>]"
+# define PROTO_FUNC "./philo <philo> <die> <eat> <sleep> [<times eats>]"
 # define NOT_EAT 0
 # define TRUE 1
 # define FALSE 0
@@ -49,6 +49,7 @@ void	set_info_philo(t_philo *philo, t_table *table, int id);
 ///Philo
 void	*thread_philo(void *data);
 void	*sniffer_philo(void *table);
+void	destroy_philo(t_table *table);
 
 //Aciones
 void	get_fork(t_table *table, t_philo *philo);
